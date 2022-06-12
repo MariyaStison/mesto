@@ -7,7 +7,6 @@
   <title>Mesto Russia</title>
 </head>
 <body class="page">
-  <div class="main-page">
 <!-- Шапка сайта -->
     <header class="header">
       <img class="header__logo" src="./images/logo.svg" alt="Логотип">
@@ -17,17 +16,17 @@
     <main> 
       <!--Секция profile-->
       <section class="profile">
-        <div class="profile__left-site">
+        <div class="profile__content">
           <img src="./images/profile__avatar.jpg" alt="Аватарка" class="profile__avatar">
           <div class="profile__info">
             <div class="profile__name-and-btn">
               <h1 class="profile__title">Жак-Ив Кусто</h1>
-              <button class="btn btn_type_edit"></button>
+              <button type="button" class="btn btn_type_edit"></button>
             </div>
             <p class="profile__subtitle">Исследователь океана</p>
           </div>
         </div>
-        <button class="btn btn_type_add"></button>       
+        <button type="button" class="btn btn_type_add"></button>       
       </section> 
       <!--Секция elemets-->
       <section>
@@ -36,7 +35,7 @@
             <img class="elemnt__img" src="./images/element__img_karachevsk.jpg" alt="Карачаевск">
             <div class="elemnt__bottom-site">
               <h2 class="elemnt__title">Карачаевск</h2>
-              <button class="btn btn_type_like"></button>
+              <button type="button" class="btn btn_type_like"></button>
             </div>
               <!--Иконка как фон в модификатор-->
           </li>
@@ -44,55 +43,56 @@
             <img class="elemnt__img" src="./images/element__img_elbrus.jpg" alt="Гора Эльбрус">
             <div class="elemnt__bottom-site">
               <h2 class="elemnt__title">Гора Эльбруc</h2>
-              <button class="btn btn_type_like"></button>
+              <button type="button" class="btn btn_type_like"></button>
             </div>
           </li>
           <li class="elemnt">
             <img class="elemnt__img" src="./images/element__img_dombay.jpg" alt="Домбай">
             <div class="elemnt__bottom-site">
               <h2 class="elemnt__title">Домбай</h2>
-              <button class="btn btn_type_like"></button>
+              <button type="button" class="btn btn_type_like"></button>
             </div>
           </li>
           <li class="elemnt">
             <img class="elemnt__img" src="./images/element__img_arhaz.JPG" alt="Архыз">
             <div class="elemnt__bottom-site">
               <h2 class="elemnt__title">Архыз</h2>
-              <button class="btn btn_type_like"></button>
+              <button type="button" class="btn btn_type_like"></button>
             </div>
           </li>
           <li class="elemnt">
             <img class="elemnt__img" src="./images/element__img_hibiny.JPG" alt="Хибины">
             <div class="elemnt__bottom-site">
               <h2 class="elemnt__title">Хибины</h2>
-              <button class="btn btn_type_like"></button>
+              <button type="button" class="btn btn_type_like"></button>
             </div>
           </li>
           <li class="elemnt">
             <img class="elemnt__img" src="./images/element__img_krym.jfif" alt="Крым">
               <div class="elemnt__bottom-site">
               <h2 class="elemnt__title">Вид на Ялту с горы Ай-Петри</h2>
-              <button class="btn btn_type_like"></button>
+              <button type="button" class="btn btn_type_like"></button>
             </div>
           </li>
         </ul>
-      </section>
-      <!--Pop-up-->
-        <div class="popup">
-          <form class="popup__container">
-            <button class="btn btn_type_close"></button>
-            <h2 class="popup__title">Редактировать профиль</h2>
-            <input type="text" placeholder="Имя" name="name" value="Жак-Ив Кусто" class="input input_type_name">
-            <input type="text" placeholder="О себе" name="about" value="Исследователь морей" class="input input_type_about">
-            <input type="submit" value="Сохранить" class="btn btn_type_submit">
-          </form>
-        </div>
+      </section> 
     </main>
       <!--Футер--> 
       <footer>
         <p class="footer">&copy; 2022. Мария Стисон</p>
-		  </footer>  
-    </div>
+		  </footer>
+ <!--Pop-up-->
+      <div class="popup">
+      <div class="popup__container">
+        <button type="button" class="btn btn_type_close"></button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+          <form name="profile_edit" class="popup__form">
+            <input type="text" placeholder="Имя" name="name" class="input input_type_name">
+            <input type="text" placeholder="О себе" name="about" class="input input_type_about">
+            <input type="submit" value="Сохранить" class="btn btn_type_submit">
+          </form>
+        </div>
+      </div>
     <script src="./scripts/index.js"></script>
   </body>
 </html>

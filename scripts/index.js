@@ -15,13 +15,12 @@ let profileName = document.querySelector('.profile__title');
 let profileAbout = document.querySelector('.profile__subtitle');
 
 //Определяем функцию открытия поп-апа
-function popupOpen () {
+function popupOpen () {  
     popup.classList.add('popup_opened');
     
     //Передаем значения провиля в поял формы
-    nameInput.textContent = profileName;
-    jobInput.textContent = profileAbout;
-
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileAbout.textContent;
 }
 
 //Определяем функцию закрытия поп-апа
