@@ -18,6 +18,6 @@
 @media screen and (max-width: 640px) {
     .profile__subtitle {
         margin-top: 8px;
-        align-self: center;
+        text-align: center;
     }
   }
