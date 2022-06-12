@@ -9,11 +9,11 @@
 
 /*Btn*/
 @import url(../blocks/btn/btn.css);
-@import url(../blocks/btn/btn_type_add.css);
-@import url(../blocks/btn/btn_type_edit.css);
-@import url(../blocks/btn/btn_type_like.css);
-@import url(../blocks/btn/btn_type_close.css);
-@import url(../blocks/btn/btn_type_submit.css);
+@import url(../blocks/btn/_type/btn_type_add.css);
+@import url(../blocks/btn/_type/btn_type_close.css);
+@import url(../blocks/btn/_type/btn_type_edit.css);
+@import url(../blocks/btn/_type/btn_type_like.css);
+@import url(../blocks/btn/_type/btn_type_submit.css);
 
 /*Header*/
 @import url(../blocks/header/header.css);
@@ -40,13 +40,12 @@
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__form/popup__form.css);
 @import url(../blocks/popup/__title/popup__title.css);
-@import url(../blocks/popup/popup_opened.css);
+@import url(../blocks/popup/_opened/popup_opened.css);
 
 /*Input*/
 @import url(../blocks/input/input.css);
-@import url(../blocks/input/input_type_name.css);
-@import url(../blocks/input/input_type_about.css);
-
+@import url(../blocks/input/_type/input_type_about.css);
+@import url(../blocks/input/_type/input_type_name.css);
 
 /*footer*/
 @import url(../blocks/footer/footer.css);

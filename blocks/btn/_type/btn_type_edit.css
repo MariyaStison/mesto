@@ -1,7 +1,7 @@
 .btn_type_edit {
     width: 24px;
     height: 24px;
-    background-image: url(../../images/edit-btn.svg);
+    background-image: url(../../../images/edit-btn.svg);
     margin-left: 18px;
     background-size: cover;
 }

@@ -1,9 +1,0 @@
-.input_type_name {
-    margin-top: 50px;
-}
-
-@media screen and (max-width: 640px) {
-    .input_type_name {
-        margin-top: 75px;
-    }
-  }

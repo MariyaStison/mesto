@@ -1,7 +1,7 @@
 .btn_type_add {
     width: 150px;
     height: 50px;
-    background-image: url(../../images/add-btn.svg);
+    background-image: url(../../../images/add-btn.svg);
     background-repeat: no-repeat;
     background-position: center center;
     border-width: 2px;

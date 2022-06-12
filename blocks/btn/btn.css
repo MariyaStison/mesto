@@ -1,8 +1,7 @@
 .btn {
     background-color: transparent;
-    line-height: 1;
-    padding: 0;
-    border-width: 0;
+    border: 0;
+    outline: 0;
     cursor: pointer;
     transition: opacity 200ms ease;
 } 
