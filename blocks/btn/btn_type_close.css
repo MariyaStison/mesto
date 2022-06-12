@@ -4,7 +4,7 @@
     background-image: url(../../images/close-icon.svg);
     background-position: center center;
     background-size: cover;
-    position: absolute;  
+    position: absolute;
     top: -35px;
     right: calc((100% - 358px)/2 - 2*32px - 8px);
 }
