@@ -1,0 +1,11 @@
+.profile__left-site {
+  display: flex;
+  flex-direction: row;
+}
+
+@media screen and (max-width: 640px) {
+  .profile__left-site {
+      flex-direction: column;
+      align-items: center;
+  }
+}

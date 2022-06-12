@@ -1,0 +1,12 @@
+.btn {
+    background-color: transparent;
+    line-height: 1;
+    padding: 0;
+    border-width: 0;
+    cursor: pointer;
+    transition: opacity 200ms ease;
+} 
+
+.btn:hover {
+    opacity: .6;
+}
