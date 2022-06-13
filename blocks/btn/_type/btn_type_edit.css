@@ -4,6 +4,8 @@
     background-image: url(../../../images/edit-btn.svg);
     margin-left: 18px;
     background-size: cover;
+    position: relative;
+    bottom: 10px;
 }
 
 @media screen and (max-width: 640px) {
@@ -11,5 +13,6 @@
         width: 18px;
         height: 18px;
         margin-left: 10px;
+        bottom: 8px;
     }
   }
