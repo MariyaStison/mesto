@@ -47,45 +47,58 @@ for (i = 0; i < initialCards.length; i = i + 1) {
   elementsContainer.append(element);
 }
 
+//Работа с поп-апами
+//Находим поп-апы, кнопку Редактирования профиля, кнопку Добавления места, кнопку закрытия поп-апа
 
-
-
-//Находим поп-ап, кнопку Редактирования профиля, кнопку закрытия поп-апа
-const popup = document.querySelector('.popup');
+const popups = document.querySelectorAll('.popup');
+const popupEdit = document.querySelector('.popup__edit');
+const popupAdd = document.querySelector('.popup__add');
 const editBtn = document.querySelector('.btn_type_edit');
-const popupCloseBtn = document.querySelector('.btn_type_close');
+const addBtn = document.querySelector('.btn_type_add');
+const popupCloseBtns = document.querySelectorAll('.btn_type_close');
+const likeBtns = document.querySelectorAll('.btn_type_like');
+const deleteBtns = document.querySelectorAll('.btn_type_delete');
 
 // Находим форму в DOM
-const formElement = document.querySelector('.popup__container');
+const editFormElement = popupEdit.querySelector('.popup__container');
+const addFormElement = popupAdd.querySelector('.popup__container');
 
 // Находим поля формы в DOM
-const nameInput = formElement.querySelector('.input_type_name');
-const jobInput = formElement.querySelector('.input_type_about');
+const nameInput = editFormElement.querySelector('.input_type_name');
+const jobInput = editFormElement.querySelector('.input_type_about');
+const titleInput = addFormElement.querySelector('.input_type_name');
+const linkInput = addFormElement.querySelector('.input_type_about');
 
 //Находим поля блока Profile, куда нужно будет встаить новые значения
 const profileName = document.querySelector('.profile__title');
 const profileAbout = document.querySelector('.profile__subtitle');
 
-//Определяем функцию открытия поп-апа
-function popupOpen () {  
-    popup.classList.add('popup_opened');
-    
-    //Передаем значения провиля в поял формы
-    nameInput.value = profileName.textContent;
-    jobInput.value = profileAbout.textContent;
+//Находим поля блока Elemnt, куда нужно будет встаить новые значения
+const elementTitle = document.querySelector('.elemnt__title');
+const elementLink = document.querySelector('.elemnt__img');
+
+//Определяем функцию, открывающую нужный поп-ап
+function popupOpen (evt) {
+    const popupTarget = evt.target.classList[1];
+
+    if (popupTarget === 'btn_type_edit') {
+      popupEdit.classList.add('popup_opened');
+    } else {
+        if (popupTarget === 'btn_type_add') {
+            popupAdd.classList.add('popup_opened');
+    }}   
 }
 
 //Определяем функцию закрытия поп-апа
-function popupClose () {
-    popup.classList.remove('popup_opened');
+function popupClose (evt) {
+    evt.target.closest('.popup').classList.remove('popup_opened');
 }
 
 // Обработчик «отправки» формы, хотя пока
 // она никуда отправляться не будет
-function formSubmitHandler (evt) {
+function editFormSubmitHandler (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
                                                 // Так мы можем определить свою логику отправки.
-                                                // О том, как это делать, расскажем позже.
 
     // Получите значение полей jobInput и nameInput из свойства value
     const nameNew = nameInput.value;
@@ -96,15 +109,70 @@ function formSubmitHandler (evt) {
     profileAbout.textContent = aboutNew;
     
     //закрываем поп-ап
-    popupClose ();
+    popupClose (evt);
 }
 
-//"Сулшаем" клик по кнопке редактирования профиля и открываем поп-ап при нажатии
-editBtn.addEventListener('click', popupOpen);
+function addFormSubmitHandler (evt) {
+    evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
+                                                // Так мы можем определить свою логику отправки.
+    //Клонируем template
+    const element = elementTemplate.querySelector('.elemnt').cloneNode(true);
+    
+        // Получите значение полей jobInput и nameInput из свойства value
+    const titleNew = titleInput.value;
+    const linkNew = linkInput.value;
 
-//"Сулшаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии
-popupCloseBtn.addEventListener('click', popupClose);
+    //Заполняем содержимым
+    element.querySelector('.elemnt__img').src = linkNew;
+    element.querySelector('.elemnt__title').textContent = titleNew;
+  
+    //Отображаем на странице
+    elementsContainer.prepend(element);
+    
+    //закрываем поп-ап
+    popupClose (evt);
+}
+
+//Определим функцию для активации \ неактиваии кнопки Лайк
+function toggleLike (evt) {
+  evt.target.classList.toggle('btn_active');
+}
+
+//Определим функцию для удаления картинки
+function deleteElement (evt) {
+    evt.target.closest('.elemnt').remove();
+}
+
+//"Слушаем" клик по кнопке редактирования профиля и открываем поп-ап при нажатии
+editBtn.addEventListener('click', function popupEditOpen (evt) {
+    //Вызываем функцию открытия поп-апа
+    popupOpen (evt);
+
+    //Передаем значения провиля в поля формы
+    nameInput.value = profileName.textContent;
+    jobInput.value = profileAbout.textContent;
+});
+
+//"Слушаем" клик по кнопке добавления картинки и открываем поп-ап при нажатии
+addBtn.addEventListener('click', popupOpen);
+
+//"Слушаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии
+for (i = 0; i < popupCloseBtns.length; i = i + 1) {
+  popupCloseBtns[i].addEventListener('click', popupClose);
+}
+
+//"Слушаем" клик по кнопке like
+for (i = 0; i < likeBtns.length; i = i + 1) {
+    likeBtns[i].addEventListener('click', toggleLike);
+}
+
+//"Слушаем" клик по кнопке Удалить
+for (i = 0; i < deleteBtns.length; i = i + 1) {
+    deleteBtns[i].addEventListener('click', deleteElement);
+}
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formElement.addEventListener('submit', formSubmitHandler);
+editFormElement.addEventListener('submit', editFormSubmitHandler);
+
+addFormElement.addEventListener('submit', addFormSubmitHandler);

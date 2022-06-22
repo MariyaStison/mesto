@@ -4,10 +4,6 @@
     background-image: url(../../../images/like-btn.svg);
 }
 
-.btn_type_like:active {
-    background-color: #000000;
-}
-
 .btn_type_like:hover {
     opacity: .5;
 }
