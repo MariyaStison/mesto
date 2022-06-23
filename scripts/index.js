@@ -53,11 +53,13 @@ for (i = 0; i < initialCards.length; i = i + 1) {
 const popups = document.querySelectorAll('.popup');
 const popupEdit = document.querySelector('.popup__edit');
 const popupAdd = document.querySelector('.popup__add');
+const popupView = document.querySelector('.popup__view');
 const editBtn = document.querySelector('.btn_type_edit');
 const addBtn = document.querySelector('.btn_type_add');
 const popupCloseBtns = document.querySelectorAll('.btn_type_close');
 const likeBtns = document.querySelectorAll('.btn_type_like');
 const deleteBtns = document.querySelectorAll('.btn_type_delete');
+const elementImgs = document.querySelectorAll('.elemnt__img');
 
 // Находим форму в DOM
 const editFormElement = popupEdit.querySelector('.popup__container');
@@ -79,14 +81,19 @@ const elementLink = document.querySelector('.elemnt__img');
 
 //Определяем функцию, открывающую нужный поп-ап
 function popupOpen (evt) {
-    const popupTarget = evt.target.classList[1];
+    const targetType = evt.target.classList;
 
-    if (popupTarget === 'btn_type_edit') {
+    if (targetType.contains('btn_type_edit')) {
       popupEdit.classList.add('popup_opened');
     } else {
-        if (popupTarget === 'btn_type_add') {
+        if (targetType.contains('btn_type_add')) {
             popupAdd.classList.add('popup_opened');
-    }}   
+        } else {
+          if (targetType.contains('elemnt__img')) {
+            popupView.classList.add('popup_opened');
+          }
+        }
+      }
 }
 
 //Определяем функцию закрытия поп-апа
@@ -112,6 +119,7 @@ function editFormSubmitHandler (evt) {
     popupClose (evt);
 }
 
+//Функция для добавления новой карточки
 function addFormSubmitHandler (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
                                                 // Так мы можем определить свою логику отправки.
@@ -128,6 +136,8 @@ function addFormSubmitHandler (evt) {
   
     //Отображаем на странице
     elementsContainer.prepend(element);
+
+    element.querySelector('.elemnt__img').addEventListener('click', popupViewOpen);
     
     //закрываем поп-ап
     popupClose (evt);
@@ -143,6 +153,28 @@ function deleteElement (evt) {
     evt.target.closest('.elemnt').remove();
 }
 
+//Определим функцию для открытия поп-ап просмотра картинки 
+function popupViewOpen(evt) {
+
+  //Вызываем функцию открытия поп-апа
+  popupOpen(evt);
+
+  //Определяем целевую карточку
+  targetElement = evt.target.closest('.elemnt');
+
+  //Находим в целевой карточки ссылку на картинку и заголовок
+  targetLink = targetElement.querySelector('.elemnt__img');
+  targetTitle = targetElement.querySelector('.elemnt__title');
+
+  //Находим нужные DOM эдементы в поп-апе
+  popupImg = popupView.querySelector('.popup__img');
+  popupImgTitle = popupView.querySelector('.popup__img-title');
+
+  //Передаем картинку и заголовок
+  popupImg.src = targetLink.src;
+  popupImgTitle.textContent = targetTitle.textContent;
+  };
+
 //"Слушаем" клик по кнопке редактирования профиля и открываем поп-ап при нажатии
 editBtn.addEventListener('click', function popupEditOpen (evt) {
     //Вызываем функцию открытия поп-апа
@@ -157,19 +189,25 @@ editBtn.addEventListener('click', function popupEditOpen (evt) {
 addBtn.addEventListener('click', popupOpen);
 
 //"Слушаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии
-for (i = 0; i < popupCloseBtns.length; i = i + 1) {
-  popupCloseBtns[i].addEventListener('click', popupClose);
-}
+popupCloseBtns.forEach((item) => {
+  item.addEventListener('click', popupClose);
+});
 
 //"Слушаем" клик по кнопке like
-for (i = 0; i < likeBtns.length; i = i + 1) {
-    likeBtns[i].addEventListener('click', toggleLike);
-}
+likeBtns.forEach((item) => {
+    item.addEventListener('click', toggleLike);
+});
 
 //"Слушаем" клик по кнопке Удалить
-for (i = 0; i < deleteBtns.length; i = i + 1) {
-    deleteBtns[i].addEventListener('click', deleteElement);
-}
+deleteBtns.forEach((item) => {
+    item.addEventListener('click', deleteElement);
+});
+
+//"Слушаем" клик по кнопке картинке
+elementImgs.forEach((item) => {
+  item.addEventListener('click', popupViewOpen);
+});
+
 
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
