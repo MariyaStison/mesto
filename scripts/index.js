@@ -31,40 +31,37 @@ const elementsContainer = document.querySelector('.elemets');
 
 //Функции
 //Определяем функцию для создания нового элемента-карточки
-function createElement (newCard) {
+function createElement({link, name}) {
   //Клонируем содержимое тега template
   const newElement = elementTemplate.querySelector('.elemnt').cloneNode(true);
   
   //Находим элементы DOM
   const elementImg = newElement.querySelector('.elemnt__img');
   const elementTitle = newElement.querySelector('.elemnt__title');
-
-  //Заполняем содержимым
-  elementImg.src = newCard.link;
-  elementTitle.textContent = newCard.name;
-  elementImg.alt = newCard.name;
-  
-  //Возвращаем созданный элемент
-  return (newElement);
-};
-
-//Определяем функцию добавления карточки на страницу
-function renderElement (newElement) {
-  const elementImg = newElement.querySelector('.elemnt__img');
   const elementLikeBtn = newElement.querySelector('.btn_type_like');
   const elementDeleteBtn = newElement.querySelector('.btn_type_delete'); 
-  
-  //Добавляем элемент на страницу
-  elementsContainer.prepend(newElement);
 
+  //Заполняем содержимым
+  elementImg.src = link;
+  elementTitle.textContent = name;
+  elementImg.alt = name;
+  
   //Добавляем "слушателей"
   elementImg.addEventListener('click', openPopupView);
   elementLikeBtn.addEventListener('click', toggleLike);
   elementDeleteBtn.addEventListener('click', deleteElement);
+
+  //Возвращаем созданный элемент
+  return newElement;
+};
+
+//Определяем функцию добавления карточки на страницу
+function renderElement(newElement) {
+  elementsContainer.prepend(newElement);
 };
 
 //Определяем функцию, открывающую нужный поп-ап
-  function openPopup (popup) {
+  function openPopup(popup) {
     popup.classList.add('popup_opened');
   }  
 
@@ -92,12 +89,12 @@ function openPopupView(evt) {
   };
 
 //Определяем функцию закрытия поп-апа
-function closePopup (popup) {
+function closePopup(popup) {
     popup.classList.remove('popup_opened');
 };
 
 //Определяем функцию для редактирования профиля
-function editFormSubmitHandler (evt) {
+function editFormSubmitHandler(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
                                                 // Так мы можем определить свою логику отправки.
 
@@ -106,11 +103,11 @@ function editFormSubmitHandler (evt) {
     profileAbout.textContent = jobInput.value;
     
     //закрываем поп-ап
-    closePopup (evt.target.closest('.popup'));
+    closePopup(popupEdit);
 };
 
 //Определяем функцию для добавления новой карточки
-function addFormSubmitHandler (evt) {
+function addFormSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   
   const newElementInput = {
@@ -119,35 +116,35 @@ function addFormSubmitHandler (evt) {
   };
 
   //Вызываем функцию создания нового элемента-карточки и добавления элемента на страницу
-  renderElement (createElement (newElementInput)); 
+  renderElement(createElement(newElementInput)); 
   
   //закрываем поп-ап
-  closePopup (evt.target.closest('.popup'));
+  closePopup(popupAdd);
   
   //Сбрасываем ввденные параметры
-  evt.target.closest('.popup__form').reset();
+  addFormElement.reset();
 };
 
 //Определим функцию для активации / деактивации кнопки Лайк
-function toggleLike (evt) {
+function toggleLike(evt) {
   evt.target.classList.toggle('btn_active');
 };
 
 //Определим функцию для удаления карточки
-function deleteElement (evt) {
+function deleteElement(evt) {
     evt.target.closest('.elemnt').remove();
 };
 
 //Обработчики
 //Создаем набор карточек по умолчанию
 initialCards.forEach((item) => {
-  renderElement (createElement (item));
+  renderElement(createElement(item));
 });
 
 //"Слушаем" клик по кнопке редактирования профиля и открываем поп-ап при нажатии
-btnEdit.addEventListener('click', function popupEditOpen (evt) {
+btnEdit.addEventListener('click', function popupEditOpen(evt) {
     //Вызываем функцию открытия поп-апа
-    openPopup (popupEdit);
+    openPopup(popupEdit);
 
     //Передаем значения провиля в поля формы
     nameInput.value = profileName.textContent;
@@ -155,8 +152,8 @@ btnEdit.addEventListener('click', function popupEditOpen (evt) {
 });
 
 //"Слушаем" клик по кнопке добавления картинки и открываем поп-ап при нажатии
-btnAdd.addEventListener('click', function (evt) {
-  openPopup (popupAdd);
+btnAdd.addEventListener('click', function(evt) {
+  openPopup(popupAdd);
 });
 
 //"Слушаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии
