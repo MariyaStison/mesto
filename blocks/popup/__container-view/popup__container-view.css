@@ -8,11 +8,3 @@
     flex-direction: column;
     position: relative;
 }
-
-
-@media screen and (max-width: 640px) {
-    .popup__container-view {
-     /* padding: 25px 22px 25px 22px;
-      max-width: 238px;*/
-    }
-  }

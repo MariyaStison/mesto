@@ -1,33 +1,5 @@
 //Переменные
-//Определяем массиив с карточками
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
-
-  //Находим поп-апы, кнопку Редактирования профиля, кнопку Добавления места, кнопку закрытия поп-апа
+  //Находим поп-апы, кнопку Редактирования профиля, кнопку Добавления места, кнопки закрытия поп-апов
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
 const popupView = document.querySelector('.popup_type_view');
@@ -35,15 +7,17 @@ const btnEdit = document.querySelector('.btn_type_edit');
 const btnAdd = document.querySelector('.btn_type_add');
 const popupCloseBtns = document.querySelectorAll('.btn_type_close');
 
-// Находим форму в DOM
+// Находим формы в DOM
 const editFormElement = popupEdit.querySelector('.popup__container');
 const addFormElement = popupAdd.querySelector('.popup__container');
 
-// Находим поля формы в DOM
+// Находим поля форм в DOM
 const nameInput = editFormElement.querySelector('.input_type_name');
 const jobInput = editFormElement.querySelector('.input_type_about');
-const titleInput = addFormElement.querySelector('.input_type_name');
-const linkInput = addFormElement.querySelector('.input_type_about');
+const newElementInput = {
+  name: addFormElement.querySelector('.input_type_name'),
+  link: addFormElement.querySelector('.input_type_about')
+};
 
 //Находим поля блока Profile, куда нужно будет встаить новые значения
 const profileName = document.querySelector('.profile__title');
@@ -57,22 +31,31 @@ const elementsContainer = document.querySelector('.elemets');
 
 //Функции
 //Определяем функцию для создания нового элемента-карточки
-function createElement (newTitle, newLink) {
+function createElement (newCard) {
   //Клонируем содержимое тега template
-  const element = elementTemplate.querySelector('.elemnt').cloneNode(true);
+  const newElement = elementTemplate.querySelector('.elemnt').cloneNode(true);
   
   //Находим элементы DOM
-  const elementImg = element.querySelector('.elemnt__img');
-  const elementTitle = element.querySelector('.elemnt__title');
-  const elementLikeBtn = element.querySelector('.btn_type_like');
-  const elementDeleteBtn = element.querySelector('.btn_type_delete');
+  const elementImg = newElement.querySelector('.elemnt__img');
+  const elementTitle = newElement.querySelector('.elemnt__title');
 
   //Заполняем содержимым
-  elementImg.src = newLink;
-  elementTitle.textContent = newTitle;
+  elementImg.src = newCard.link;
+  elementTitle.textContent = newCard.name;
+  elementImg.alt = newCard.name;
+  
+  //Возвращаем созданный элемент
+  return (newElement);
+};
 
-  //Отображаем на странице
-  elementsContainer.prepend(element);
+//Определяем функцию добавления карточки на страницу
+function renderElement (newElement) {
+  const elementImg = newElement.querySelector('.elemnt__img');
+  const elementLikeBtn = newElement.querySelector('.btn_type_like');
+  const elementDeleteBtn = newElement.querySelector('.btn_type_delete'); 
+  
+  //Добавляем элемент на страницу
+  elementsContainer.prepend(newElement);
 
   //Добавляем "слушателей"
   elementImg.addEventListener('click', openPopupView);
@@ -81,102 +64,90 @@ function createElement (newTitle, newLink) {
 };
 
 //Определяем функцию, открывающую нужный поп-ап
-function openPopup (evt) {
-    const targetType = evt.target.classList;
-
-    if (targetType.contains('btn_type_edit')) {
-      popupEdit.classList.add('popup_opened');
-    } else {
-        if (targetType.contains('btn_type_add')) {
-            popupAdd.classList.add('popup_opened');
-        } 
-        else {
-          if (targetType.contains('elemnt__img')) {
-            popupView.classList.add('popup_opened');
-          }
-        }
-      }
-    }
+  function openPopup (popup) {
+    popup.classList.add('popup_opened');
+  }  
 
 //Определим функцию для открытия поп-ап просмотра картинки 
 function openPopupView(evt) {
 
   //Вызываем функцию открытия поп-апа
-  openPopup(evt);
+  openPopup(popupView);
 
   //Определяем целевую карточку
-  targetElement = evt.target.closest('.elemnt');
+  const targetElement = evt.target.closest('.elemnt');
 
   //Находим в целевой карточки ссылку на картинку и заголовок
-  targetLink = targetElement.querySelector('.elemnt__img');
-  targetTitle = targetElement.querySelector('.elemnt__title');
+  const targetLink = targetElement.querySelector('.elemnt__img');
+  const targetTitle = targetElement.querySelector('.elemnt__title');
 
   //Находим нужные DOM эдементы в поп-апе
-  popupImg = popupView.querySelector('.popup__img');
-  popupImgTitle = popupView.querySelector('.popup__img-title');
+  const popupImg = popupView.querySelector('.popup__img');
+  const popupImgTitle = popupView.querySelector('.popup__img-title');
 
   //Передаем картинку и заголовок
   popupImg.src = targetLink.src;
   popupImgTitle.textContent = targetTitle.textContent;
+  popupImg.alt = targetTitle.textContent;
   };
 
 //Определяем функцию закрытия поп-апа
-function closePopup (evt) {
-    evt.target.closest('.popup').classList.remove('popup_opened');
-    if (evt.target.closest('.popup__form') != null) {
-      evt.target.closest('.popup__form').reset();
-    }
-}
+function closePopup (popup) {
+    popup.classList.remove('popup_opened');
+};
 
 //Определяем функцию для редактирования профиля
 function editFormSubmitHandler (evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
                                                 // Так мы можем определить свою логику отправки.
 
-    // Получите значение полей jobInput и nameInput из свойства value
-    const nameNew = nameInput.value;
-    const aboutNew = jobInput.value;
-
     // Вставьте новые значения с помощью textContent
-    profileName.textContent = nameNew;
-    profileAbout.textContent = aboutNew;
+    profileName.textContent = nameInput.value;
+    profileAbout.textContent = jobInput.value;
     
     //закрываем поп-ап
-    closePopup (evt);
-}
+    closePopup (evt.target.closest('.popup'));
+};
 
 //Определяем функцию для добавления новой карточки
 function addFormSubmitHandler (evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   
-  //Вызываем функцию создания нового элемента-карточки
-  createElement (titleInput.value, linkInput.value); 
+  const newElementInput = {
+    name: addFormElement.querySelector('.input_type_name').value,
+    link: addFormElement.querySelector('.input_type_about').value
+  };
+
+  //Вызываем функцию создания нового элемента-карточки и добавления элемента на страницу
+  renderElement (createElement (newElementInput)); 
   
   //закрываем поп-ап
-  closePopup (evt);
-}
+  closePopup (evt.target.closest('.popup'));
+  
+  //Сбрасываем ввденные параметры
+  evt.target.closest('.popup__form').reset();
+};
 
 //Определим функцию для активации / деактивации кнопки Лайк
 function toggleLike (evt) {
   evt.target.classList.toggle('btn_active');
-}
+};
 
 //Определим функцию для удаления карточки
 function deleteElement (evt) {
     evt.target.closest('.elemnt').remove();
-}
+};
 
 //Обработчики
 //Создаем набор карточек по умолчанию
 initialCards.forEach((item) => {
-  //Вызываем функцию создания нового элемента-карточки
-  createElement (item.name, item.link);
+  renderElement (createElement (item));
 });
 
 //"Слушаем" клик по кнопке редактирования профиля и открываем поп-ап при нажатии
 btnEdit.addEventListener('click', function popupEditOpen (evt) {
     //Вызываем функцию открытия поп-апа
-    openPopup (evt);
+    openPopup (popupEdit);
 
     //Передаем значения провиля в поля формы
     nameInput.value = profileName.textContent;
@@ -184,11 +155,15 @@ btnEdit.addEventListener('click', function popupEditOpen (evt) {
 });
 
 //"Слушаем" клик по кнопке добавления картинки и открываем поп-ап при нажатии
-btnAdd.addEventListener('click', openPopup);
+btnAdd.addEventListener('click', function (evt) {
+  openPopup (popupAdd);
+});
 
 //"Слушаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии
 popupCloseBtns.forEach((item) => {
-  item.addEventListener('click', closePopup);
+  item.addEventListener('click', function (evt) {
+  closePopup (evt.target.closest('.popup'));
+});
 });
 
 // Прикрепляем обработчики к форме:
