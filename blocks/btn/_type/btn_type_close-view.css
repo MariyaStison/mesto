@@ -13,7 +13,7 @@
     .btn_type_close {
       width: 20px;
       height: 20px;
-      top: -34px;
-      right: calc((100% - 238px)/2 - 24px);
+      margin-left: 93%;
+      margin-bottom: 10px;
     }
   }
