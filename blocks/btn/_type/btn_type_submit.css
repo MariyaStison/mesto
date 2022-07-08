@@ -1,6 +1,6 @@
 .btn_type_submit {
     max-width: 358px;
-    margin-top: 48px;
+    margin-top: 18px;
     height: 50px;
     background-color: #000000;
     border-radius: 2px;
@@ -17,7 +17,7 @@
 
 @media screen and (max-width: 640px) {
     .btn_type_submit {
-        margin-top: 45px;
+        margin-top: 15px;
         height: 46px;
         font-size: 14px;
     }

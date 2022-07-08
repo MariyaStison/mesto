@@ -17,6 +17,7 @@
 @import url(../blocks/btn/_type/btn_type_submit.css);
 @import url(../blocks/btn/_type/btn_type_delete.css);
 @import url(../blocks/btn/_active/btn_active.css);
+@import url(../blocks/btn/_active/btn_inactive.css);
 
 /*Header*/
 @import url(../blocks/header/header.css);
@@ -52,6 +53,9 @@
 @import url(../blocks/input/input.css);
 @import url(../blocks/input/_type/input_type_about.css);
 @import url(../blocks/input/_type/input_type_name.css);
+@import url(../blocks/input/_type/input_type_error.css);
+@import url(../blocks/input-error/input-error.css);
+@import url(../blocks/input-error/_active/input-error_active.css);
 
 /*footer*/
 @import url(../blocks/footer/footer.css);

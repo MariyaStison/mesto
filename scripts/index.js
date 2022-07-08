@@ -27,7 +27,7 @@ const profileAbout = document.querySelector('.profile__subtitle');
 const elementTemplate = document.querySelector('#elemnt').content;
 
 //Находим контейнер с карточками
-const elementsContainer = document.querySelector('.elemets');
+const elementsContainer = document.querySelector('.elemets');                  
 
 //Функции
 //Определяем функцию для создания нового элемента-карточки
@@ -60,10 +60,30 @@ function renderElement(newElement) {
   elementsContainer.prepend(newElement);
 };
 
+//Определяем функцию, закрывающую поп-ап по нажатию на Esc
+function closePopupByEsc(evt, popup) {
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  }
+};
+
+//Определяем функцию, закрывающую поп-ап по клику вне поп-апа
+function closePopupByClickOut(evt) {
+  if (evt.target.classList.contains('popup') === true) {
+    if (evt.target.closest('.popup_opened') != null) {
+      closePopup(evt.target.closest('.popup_opened'));
+    }
+  }
+};
+
 //Определяем функцию, открывающую нужный поп-ап
   function openPopup(popup) {
     popup.classList.add('popup_opened');
-  }  
+    //Добавляем "слушатель" для нажатия на кнопку Esc
+    document.addEventListener('keydown', closePopupByEsc);
+    //Добавляем "слушатель" для клика вне поп-апа
+    document.addEventListener('click', closePopupByClickOut);
+  };
 
 //Определим функцию для открытия поп-ап просмотра картинки 
 function openPopupView(evt) {
@@ -91,6 +111,9 @@ function openPopupView(evt) {
 //Определяем функцию закрытия поп-апа
 function closePopup(popup) {
     popup.classList.remove('popup_opened');
+    //Удаляем "слушателей"
+    document.removeEventListener('keydown', closePopupByEsc);
+    document.removeEventListener('click', closePopupByClickOut);
 };
 
 //Определяем функцию для редактирования профиля
@@ -121,8 +144,8 @@ function addFormSubmitHandler(evt) {
   //закрываем поп-ап
   closePopup(popupAdd);
   
-  //Сбрасываем ввденные параметры
-  addFormElement.reset();
+  //Сбрасываем введенные параметры
+  addFormElement.querySelector('.popup__form').reset();
 };
 
 //Определим функцию для активации / деактивации кнопки Лайк
