@@ -117,6 +117,9 @@ function closePopup(popup) {
     //Удаляем "слушателей"
     document.removeEventListener('keydown', closePopupByEsc);
     document.removeEventListener('click', closePopupByClickOut);
+    
+    //Вызываем функцию, сбрасывающая ошибки валидации
+    resetValidation(popup, validationConfig);
 };
 
 //Определяем функцию для редактирования профиля
@@ -182,7 +185,7 @@ btnEdit.addEventListener('click', function popupEditOpen(evt) {
 //"Слушаем" клик по кнопке добавления картинки и открываем поп-ап при нажатии
 btnAdd.addEventListener('click', function(evt) {
   openPopup(popupAdd);
-  disableBtn(popupAdd.querySelector('.btn_type_submit'), 'btn_inactive');
+  disableBtn(popupAdd.querySelector(validationConfig.submitButtonSelector), validationConfig.inactiveButtonClass);
 });
 
 //"Слушаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии
