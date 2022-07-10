@@ -27,7 +27,11 @@ const profileAbout = document.querySelector('.profile__subtitle');
 const elementTemplate = document.querySelector('#elemnt').content;
 
 //Находим контейнер с карточками
-const elementsContainer = document.querySelector('.elemets');                  
+const elementsContainer = document.querySelector('.elemets');
+
+//Находим элементы поп-апа просмотра картинки
+const popupImg = popupView.querySelector('.popup__img');
+const popupImgTitle = popupView.querySelector('.popup__img-title');
 
 //Функции
 //Определяем функцию для создания нового элемента-карточки
@@ -94,10 +98,6 @@ function openPopupView(evt) {
   //Находим в целевой карточки ссылку на картинку и заголовок
   const targetLink = targetElement.querySelector('.elemnt__img');
   const targetTitle = targetElement.querySelector('.elemnt__title');
-
-  //Находим нужные DOM эдементы в поп-апе
-  const popupImg = popupView.querySelector('.popup__img');
-  const popupImgTitle = popupView.querySelector('.popup__img-title');
 
   //Вызываем функцию открытия поп-апа
   openPopup(popupView);
