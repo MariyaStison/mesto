@@ -88,10 +88,7 @@ function closePopupByClickOut(evt) {
 //Определим функцию для открытия поп-ап просмотра картинки 
 function openPopupView(evt) {
 
-  //Вызываем функцию открытия поп-апа
-  openPopup(popupView);
-
-  //Определяем целевую карточку
+   //Определяем целевую карточку
   const targetElement = evt.target.closest('.elemnt');
 
   //Находим в целевой карточки ссылку на картинку и заголовок
@@ -101,6 +98,9 @@ function openPopupView(evt) {
   //Находим нужные DOM эдементы в поп-апе
   const popupImg = popupView.querySelector('.popup__img');
   const popupImgTitle = popupView.querySelector('.popup__img-title');
+
+  //Вызываем функцию открытия поп-апа
+  openPopup(popupView);
 
   //Передаем картинку и заголовок
   popupImg.src = targetLink.src;
