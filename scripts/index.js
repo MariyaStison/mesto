@@ -172,11 +172,14 @@ btnEdit.addEventListener('click', function popupEditOpen(evt) {
     //Передаем значения провиля в поля формы
     nameInput.value = profileName.textContent;
     jobInput.value = profileAbout.textContent;
+
+   
 });
 
 //"Слушаем" клик по кнопке добавления картинки и открываем поп-ап при нажатии
 btnAdd.addEventListener('click', function(evt) {
   openPopup(popupAdd);
+  disableBtn(popupAdd.querySelector('.btn_type_submit'), 'btn_inactive');
 });
 
 //"Слушаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии

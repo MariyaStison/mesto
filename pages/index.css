@@ -7,6 +7,9 @@
 /*Page*/
 @import url(../blocks/page/page.css);
 
+/*Main*/
+@import url(../blocks/main/main.css);
+
 /*Btn*/
 @import url(../blocks/btn/btn.css);
 @import url(../blocks/btn/_type/btn_type_add.css);

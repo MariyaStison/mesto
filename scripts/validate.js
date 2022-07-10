@@ -2,7 +2,9 @@
 const setEventListeners = (formElement, inputSelector, submitButtonSelector, inputErrorClass, errorClass, inactiveButtonClass) => {
     const inputList = Array.from(formElement.querySelectorAll(inputSelector));
     const buttonElement = formElement.querySelector(submitButtonSelector);
-  
+    
+   toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+
     inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement, inputErrorClass, errorClass);
@@ -10,7 +12,6 @@ const setEventListeners = (formElement, inputSelector, submitButtonSelector, inp
       });
     });
   };
- 
 
  //Определяем функцию, отвечающую за включение валидации
  const enableValidation = ({formSelector,
@@ -65,7 +66,7 @@ const hasInvalidInput = (inputList) => {
   });
   };
   
-//Определяем функцию, отвечающую за активности/неактивность кнокпи отправки формы   
+//Определяем функцию, отвечающую за активности/неактивность кнокпи отправки формы по результатам валидации
   const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
     if (hasInvalidInput(inputList)) {
       buttonElement.classList.add(inactiveButtonClass);
@@ -75,6 +76,12 @@ const hasInvalidInput = (inputList) => {
       buttonElement.disabled = false;
   }; 
   };
+
+   //Определяем функцию, блокирующую кнопку отправки формы поп-апа
+ const disableBtn = (submitButton, inactiveButtonClass) => {
+  submitButton.disabled = true;
+  submitButton.classList.add(inactiveButtonClass);
+ };
   
   //Вызываем функцию, отвечающую за включение валидации
   enableValidation({
