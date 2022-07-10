@@ -7,9 +7,12 @@ const btnEdit = document.querySelector('.btn_type_edit');
 const btnAdd = document.querySelector('.btn_type_add');
 const popupCloseBtns = document.querySelectorAll('.btn_type_close');
 
-// Находим формы в DOM
+// Находим контейнеры форм в DOM
 const formElementEdit = popupEdit.querySelector('.popup__container');
 const formElementAdd = popupAdd.querySelector('.popup__container');
+
+//Находим форму
+const formAdd = formElementAdd.querySelector('.popup__form');
 
 // Находим поля форм в DOM
 const nameInput = formElementEdit.querySelector('.input_type_name');
@@ -145,7 +148,7 @@ function addFormSubmitHandler(evt) {
   closePopup(popupAdd);
   
   //Сбрасываем введенные параметры
-  formElementAdd.querySelector('.popup__form').reset();
+  formAdd.reset();
 };
 
 //Определим функцию для активации / деактивации кнопки Лайк
