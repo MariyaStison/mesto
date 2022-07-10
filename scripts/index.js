@@ -102,13 +102,13 @@ function openPopupView(evt) {
   const targetLink = targetElement.querySelector('.elemnt__img');
   const targetTitle = targetElement.querySelector('.elemnt__title');
 
-  //Вызываем функцию открытия поп-апа
-  openPopup(popupView);
-
   //Передаем картинку и заголовок
   popupImg.src = targetLink.src;
   popupImgTitle.textContent = targetTitle.textContent;
   popupImg.alt = targetTitle.textContent;
+
+  //Вызываем функцию открытия поп-апа
+  openPopup(popupView);
   };
 
 //Определяем функцию закрытия поп-апа
@@ -178,8 +178,6 @@ btnEdit.addEventListener('click', function popupEditOpen(evt) {
     //Передаем значения провиля в поля формы
     nameInput.value = profileName.textContent;
     jobInput.value = profileAbout.textContent;
-
-   
 });
 
 //"Слушаем" клик по кнопке добавления картинки и открываем поп-ап при нажатии
