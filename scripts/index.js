@@ -117,9 +117,6 @@ function closePopup(popup) {
     //Удаляем "слушателей"
     document.removeEventListener('keydown', closePopupByEsc);
     document.removeEventListener('click', closePopupByClickOut);
-    
-    //Вызываем функцию, сбрасывающая ошибки валидации
-    resetValidation(popup, validationConfig);
 };
 
 //Определяем функцию для редактирования профиля
@@ -178,12 +175,18 @@ btnEdit.addEventListener('click', function popupEditOpen(evt) {
     //Передаем значения провиля в поля формы
     nameInput.value = profileName.textContent;
     jobInput.value = profileAbout.textContent;
+
+    //Вызываем функцию, сбрасывающую ошибки валидации
+    resetValidation(popupEdit, validationConfig);
 });
 
 //"Слушаем" клик по кнопке добавления картинки и открываем поп-ап при нажатии
 btnAdd.addEventListener('click', function(evt) {
   openPopup(popupAdd);
   disableBtn(popupAdd.querySelector(validationConfig.submitButtonSelector), validationConfig.inactiveButtonClass);
+
+  //Вызываем функцию, сбрасывающую ошибки валидации
+  resetValidation(popupAdd, validationConfig);
 });
 
 //"Слушаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии
