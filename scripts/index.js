@@ -8,15 +8,15 @@ const btnAdd = document.querySelector('.btn_type_add');
 const popupCloseBtns = document.querySelectorAll('.btn_type_close');
 
 // Находим формы в DOM
-const editFormElement = popupEdit.querySelector('.popup__container');
-const addFormElement = popupAdd.querySelector('.popup__container');
+const formElementEdit = popupEdit.querySelector('.popup__container');
+const formElementAdd = popupAdd.querySelector('.popup__container');
 
 // Находим поля форм в DOM
-const nameInput = editFormElement.querySelector('.input_type_name');
-const jobInput = editFormElement.querySelector('.input_type_about');
+const nameInput = formElementEdit.querySelector('.input_type_name');
+const jobInput = formElementEdit.querySelector('.input_type_about');
 const newElementInput = {
-  name: addFormElement.querySelector('.input_type_name'),
-  link: addFormElement.querySelector('.input_type_about')
+  name: formElementAdd.querySelector('.input_type_name'),
+  link: formElementAdd.querySelector('.input_type_about')
 };
 
 //Находим поля блока Profile, куда нужно будет встаить новые значения
@@ -134,8 +134,8 @@ function addFormSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   
   const newElementInput = {
-    name: addFormElement.querySelector('.input_type_name').value,
-    link: addFormElement.querySelector('.input_type_about').value
+    name: formElementAdd.querySelector('.input_type_name').value,
+    link: formElementAdd.querySelector('.input_type_about').value
   };
 
   //Вызываем функцию создания нового элемента-карточки и добавления элемента на страницу
@@ -145,7 +145,7 @@ function addFormSubmitHandler(evt) {
   closePopup(popupAdd);
   
   //Сбрасываем введенные параметры
-  addFormElement.querySelector('.popup__form').reset();
+  formElementAdd.querySelector('.popup__form').reset();
 };
 
 //Определим функцию для активации / деактивации кнопки Лайк
@@ -190,5 +190,5 @@ popupCloseBtns.forEach((item) => {
 });
 
 // Прикрепляем обработчики к форме:
-editFormElement.addEventListener('submit', editFormSubmitHandler);
-addFormElement.addEventListener('submit', addFormSubmitHandler);
+formElementEdit.addEventListener('submit', editFormSubmitHandler);
+formElementAdd.addEventListener('submit', addFormSubmitHandler);
