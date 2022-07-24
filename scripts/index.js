@@ -1,11 +1,17 @@
+//ИМПОРТ
+import {initialCards} from './Card.js';
+import {Card} from './Card.js';
+
 //Переменные
-  //Находим поп-апы, кнопку Редактирования профиля, кнопку Добавления места, кнопки закрытия поп-апов
+//Находим поп-апы, кнопку Редактирования профиля, кнопку Добавления места, кнопки закрытия поп-апов
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
 const popupView = document.querySelector('.popup_type_view');
 const btnEdit = document.querySelector('.btn_type_edit');
 const btnAdd = document.querySelector('.btn_type_add');
 const popupCloseBtns = document.querySelectorAll('.btn_type_close');
+//Определяем шаблон карточки
+const templateSelector = '#elemnt';
 
 // Находим контейнеры форм в DOM
 const formElementEdit = popupEdit.querySelector('.popup__container');
@@ -38,7 +44,7 @@ const popupImgTitle = popupView.querySelector('.popup__img-title');
 
 //Функции
 //Определяем функцию для создания нового элемента-карточки
-function createElement({link, name}) {
+/*function createElement({link, name}) {
   //Клонируем содержимое тега template
   const newElement = elementTemplate.querySelector('.elemnt').cloneNode(true);
   
@@ -61,10 +67,12 @@ function createElement({link, name}) {
   //Возвращаем созданный элемент
   return newElement;
 };
+*/
 
 //Определяем функцию добавления карточки на страницу
-function renderElement(newElement) {
-  elementsContainer.prepend(newElement);
+function renderElement(item) {
+  const card = new Card(item.name, item.link, item.name, templateSelector);
+  elementsContainer.prepend(card.generateElement());
 };
 
 //Определяем функцию, закрывающую поп-ап по нажатию на Esc
@@ -84,7 +92,7 @@ function closePopupByClickOut(evt) {
 };
 
 //Определяем функцию, открывающую нужный поп-ап
-  function openPopup(popup) {
+export function openPopup(popup) {
     popup.classList.add('popup_opened');
     //Добавляем "слушатель" для нажатия на кнопку Esc
     document.addEventListener('keydown', closePopupByEsc);
@@ -92,7 +100,7 @@ function closePopupByClickOut(evt) {
     document.addEventListener('click', closePopupByClickOut);
   };
 
-//Определим функцию для открытия поп-ап просмотра картинки 
+//Определим функцию для открытия поп-ап просмотра картинки - ПЕРЕНОС
 function openPopupView(evt) {
 
    //Определяем целевую карточку
@@ -138,11 +146,12 @@ function addFormSubmitHandler(evt) {
   
   const newElementInput = {
     name: formElementAdd.querySelector('.input_type_name').value,
-    link: formElementAdd.querySelector('.input_type_about').value
+    link: formElementAdd.querySelector('.input_type_about').value,
+    alt: formElementAdd.querySelector('.input_type_name').value
   };
 
   //Вызываем функцию создания нового элемента-карточки и добавления элемента на страницу
-  renderElement(createElement(newElementInput)); 
+  renderElement(newElementInput);
   
   //закрываем поп-ап
   closePopup(popupAdd);
@@ -151,20 +160,23 @@ function addFormSubmitHandler(evt) {
   formAdd.reset();
 };
 
-//Определим функцию для активации / деактивации кнопки Лайк
-function toggleLike(evt) {
+//Определим функцию для активации / деактивации кнопки Лайк - ПЕРЕНОС
+/*function toggleLike(evt) {
   evt.target.classList.toggle('btn_active');
 };
 
-//Определим функцию для удаления карточки
+//Определим функцию для удаления карточки  - ПЕРЕНОС
 function deleteElement(evt) {
     evt.target.closest('.elemnt').remove();
 };
+*/
 
 //Обработчики
 //Создаем набор карточек по умолчанию
+
+
 initialCards.forEach((item) => {
-  renderElement(createElement(item));
+  renderElement(item);
 });
 
 //"Слушаем" клик по кнопке редактирования профиля и открываем поп-ап при нажатии
