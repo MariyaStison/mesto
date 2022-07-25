@@ -1,4 +1,4 @@
-//Определяем переменные для валидации
+/*//Определяем переменные для валидации - MOVE
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.input',
@@ -8,7 +8,7 @@ const validationConfig = {
   errorClass: 'input-error_active'
 };
 
- //Определяем функцию, отвечающую за установку "слушателей" на поля ввода
+ //Определяем функцию, отвечающую за установку "слушателей" на поля ввода - MOVE
 const setEventListeners = (formElement, inputSelector, submitButtonSelector, inputErrorClass, errorClass, inactiveButtonClass) => {
     const inputList = Array.from(formElement.querySelectorAll(inputSelector));
     const buttonElement = formElement.querySelector(submitButtonSelector);
@@ -23,7 +23,7 @@ const setEventListeners = (formElement, inputSelector, submitButtonSelector, inp
     });
   };
 
- //Определяем функцию, отвечающую за включение валидации
+ //Определяем функцию, отвечающую за включение валидации - MOVE
  const enableValidation = ({formSelector,
     inputSelector,
     submitButtonSelector,
@@ -40,7 +40,7 @@ const setEventListeners = (formElement, inputSelector, submitButtonSelector, inp
     });
   };
 
-//Определяем функцию для добавления класса ошибки полю ввода
+//Определяем функцию для добавления класса ошибки полю ввода - MOVE
 const showInputError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     
@@ -50,7 +50,7 @@ const showInputError = (formElement, inputElement, errorMessage, inputErrorClass
   };
   
   
-  //Определяем функцию для удаления класса ошибки у поля ввода
+  //Определяем функцию для удаления класса ошибки у поля ввода - MOVE
   const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     
@@ -60,7 +60,7 @@ const showInputError = (formElement, inputElement, errorMessage, inputErrorClass
   };
   
   
-  //Определяем функцию для проверка валидности заполнения формы
+  //Определяем функцию для проверка валидности заполнения формы - MOVE
   const checkInputValidity = (formElement, inputElement, inputErrorClass, errorClass) => {
     if (!inputElement.validity.valid) {
       showInputError(formElement, inputElement, inputElement.validationMessage, inputErrorClass, errorClass);
@@ -69,14 +69,14 @@ const showInputError = (formElement, inputElement, errorMessage, inputErrorClass
     }
   };
 
-//Определяем функцию, проверяющую наличие невалидных данных в полях  
+//Определяем функцию, проверяющую наличие невалидных данных в полях - MOVE
 const hasInvalidInput = (inputList) => {
     return inputList.some((inputElement) => {
       return !inputElement.validity.valid;
   });
   };
   
-//Определяем функцию, отвечающую за активности/неактивность кнокпи отправки формы по результатам валидации
+//Определяем функцию, отвечающую за активности/неактивность кнопки отправки формы по результатам валидации - MOVE
   const toggleButtonState = (inputList, buttonElement, inactiveButtonClass) => {
     if (hasInvalidInput(inputList)) {
       buttonElement.classList.add(inactiveButtonClass);
@@ -87,18 +87,19 @@ const hasInvalidInput = (inputList) => {
   }; 
   };
 
- //Определяем функцию, блокирующую кнопку отправки формы поп-апа
+ //Определяем функцию, блокирующую кнопку отправки формы поп-апа - MOVE
  const disableBtn = (submitButton, inactiveButtonClass) => {
   submitButton.disabled = true;
   submitButton.classList.add(inactiveButtonClass);
  };
  
- //Определяем функцию, сбрасывающую ошибки
+ //Определяем функцию, сбрасывающую ошибки - MOVE
  const resetValidation = (popup, validationConfig) => {
   popup.querySelectorAll(validationConfig.inputSelector).forEach((item) => {
   hideInputError(popup, item, validationConfig.inputErrorClass, validationConfig.errorClass);
  });
 }
 
-  //Вызываем функцию, отвечающую за включение валидации
+  //Вызываем функцию, отвечающую за включение валидации - MOVE
   enableValidation(validationConfig);
+  */

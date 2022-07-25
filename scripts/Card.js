@@ -88,7 +88,7 @@ export class Card {
       };
     
       //Приватный метод для открытия поп-ап просмотра картинки 
-        _openPopupView() {
+      _openPopupView() {
      
        //Находим в целевой карточки ссылку на картинку и заголовок
        const targetLink = this._element.querySelector('.elemnt__img');
