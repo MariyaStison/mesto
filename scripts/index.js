@@ -24,6 +24,8 @@ const formAdd = formElementAdd.querySelector('.popup__form');
 // Находим поля форм в DOM
 const nameInput = formElementEdit.querySelector('.input_type_name');
 const jobInput = formElementEdit.querySelector('.input_type_about');
+const nameAdd = formElementAdd.querySelector('.input_type_name');
+const linkAdd = formElementAdd.querySelector('.input_type_about');
 
 //Находим поля блока Profile, куда нужно будет встаить новые значения
 const profileName = document.querySelector('.profile__title');
@@ -90,9 +92,9 @@ function addFormSubmitHandler(evt) {
   evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы
   
   const newElementInput = {
-    name: formElementAdd.querySelector('.input_type_name').value,
-    link: formElementAdd.querySelector('.input_type_about').value,
-    alt: formElementAdd.querySelector('.input_type_name').value
+    name: nameAdd.value,
+    link: linkAdd.value,
+    alt: nameAdd.value
   };
 
   //Вызываем функцию создания нового элемента-карточки и добавления элемента на страницу
