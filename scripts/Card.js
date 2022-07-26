@@ -60,6 +60,7 @@ export class Card {
       //Приватный метод для удаления карточки
       _deleteElement() {
         this._element.remove();
+        this._element = null;
       };
     
       //Приватный метод для открытия поп-ап просмотра картинки 
