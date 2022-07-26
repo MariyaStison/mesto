@@ -1,6 +1,7 @@
 //ИМПОРТ
-import {initialCards, Card} from './Card.js';
+import {Card} from './Card.js';
 import {validationConfig, FormValidator, disableBtn, resetValidation} from './FormValidator.js';
+import {initialCards} from './data.js';
 
 //Переменные
 //Находим поп-апы, кнопку Редактирования профиля, кнопку Добавления места, кнопки закрытия поп-апов
