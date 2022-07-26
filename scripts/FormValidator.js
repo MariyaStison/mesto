@@ -16,7 +16,8 @@ export const validationConfig = {
       this._inactiveButtonClass = validationConfig.inactiveButtonClass,
       this._inputErrorClass = validationConfig.inputErrorClass,
       this._errorClass = validationConfig.errorClass,
-      this._form = form
+      this._form = form,
+      this._submitButton = this._form.querySelector(this._submitButtonSelector)
     };
 
     //Приватный метод, устанавливающий слушателей по поля ввода
@@ -62,7 +63,7 @@ export const validationConfig = {
       if (!inputElement.validity.valid) {
         this._showInputError(formElement, inputElement, inputElement.validationMessage, inputErrorClass, errorClass);
       } else {
-        hideInputError(formElement, inputElement, inputErrorClass, errorClass);
+        this._hideInputError(formElement, inputElement, inputErrorClass, errorClass);
       }
     };
 
@@ -83,25 +84,25 @@ export const validationConfig = {
         buttonElement.disabled = false;
       }; 
     };
-}
 
-//Функция  для удаления класса ошибки у поля ввода (вне класса, т.к. используется в resetValidation)
-const hideInputError = (formElement, inputElement, inputErrorClass, errorClass) => {
+  //Приватный метод для удаления класса ошибки у поля ввода
+  _hideInputError(formElement, inputElement, inputErrorClass, errorClass) {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(inputErrorClass);
     errorElement.classList.remove(errorClass);
     errorElement.textContent = '';
-};
-
-//Функция, блокирующая кнопку отправки формы поп-апа
-export const disableBtn = (submitButton, inactiveButtonClass) => {
-    submitButton.disabled = true;
-    submitButton.classList.add(inactiveButtonClass);
   };
 
-//Функция, сбрасывающая ошибки
-export const resetValidation = (popup, validationConfig) => {
-    popup.querySelectorAll(validationConfig.inputSelector).forEach((item) => {
-    hideInputError(popup, item, validationConfig.inputErrorClass, validationConfig.errorClass);
+  //Публичный метод, блокирующий кнопку отправки формы поп-апа
+  disableBtn() {
+    this._submitButton.disabled = true;
+    this._submitButton.classList.add(this._inactiveButtonClass);
+  };
+
+  //Публичный метод, сбрасывающий ошибки
+  resetValidation(popup) {
+    popup.querySelectorAll(this._inputSelector).forEach((item) => {
+    this._hideInputError(popup, item, this._inputErrorClass, this._errorClass);
     });
   };
+}

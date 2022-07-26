@@ -1,6 +1,7 @@
 //ИМПОРТ
 import {Card} from './Card.js';
-import {validationConfig, FormValidator, disableBtn, resetValidation} from './FormValidator.js';
+//import {validationConfig, FormValidator, disableBtn, resetValidation} from './FormValidator.js';
+import {validationConfig, FormValidator} from './FormValidator.js';
 import {initialCards} from './data.js';
 
 //Переменные
@@ -119,12 +120,12 @@ initialCards.forEach((item) => {
   renderElement(generateCard(item));
 });
 
-//Включает валидацию для всех форм
-const popup_forms = document.querySelectorAll('.popup__form');
-popup_forms.forEach((item) => {
-  const formValidator = new FormValidator(validationConfig, item);
-  formValidator.enableValidation();
-});
+//Включает валидацию для форм
+const formValidatorPopupAdd = new FormValidator(validationConfig, popupAdd);
+  formValidatorPopupAdd.enableValidation();
+
+const formValidatorPopupEdit = new FormValidator(validationConfig, popupEdit);
+  formValidatorPopupEdit.enableValidation();
 
 //"Слушаем" клик по кнопке редактирования профиля и открываем поп-ап при нажатии
 btnEdit.addEventListener('click', function popupEditOpen() {
@@ -136,16 +137,16 @@ btnEdit.addEventListener('click', function popupEditOpen() {
     jobInput.value = profileAbout.textContent;
 
     //Вызываем функцию, сбрасывающую ошибки валидации
-    resetValidation(popupEdit, validationConfig);
+    formValidatorPopupEdit.resetValidation(popupEdit);
 });
 
 //"Слушаем" клик по кнопке добавления картинки и открываем поп-ап при нажатии
 btnAdd.addEventListener('click', function() {
   openPopup(popupAdd);
-  disableBtn(popupAdd.querySelector(validationConfig.submitButtonSelector), validationConfig.inactiveButtonClass);
+  formValidatorPopupAdd.disableBtn();
 
   //Вызываем функцию, сбрасывающую ошибки валидации
-  resetValidation(popupAdd, validationConfig);
+  formValidatorPopupAdd.resetValidation(popupAdd);
 });
 
 //"Слушаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии
