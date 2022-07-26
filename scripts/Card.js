@@ -6,7 +6,6 @@ export class Card {
     this._image = image;
     this._alt = alt;
     this._templateSelector = templateSelector
-  
   }
   
   //Приватный метод для создания нового элементы по шаблону
@@ -66,19 +65,15 @@ export class Card {
     
       //Приватный метод для открытия поп-ап просмотра картинки 
       _openPopupView() {
-     
-       //Находим в целевой карточки ссылку на картинку и заголовок
-       const targetLink = this._element.querySelector('.elemnt__img');
-       const targetTitle = this._element.querySelector('.elemnt__title');
        
        //Находим элементы поп-апа просмотра картинки
        const popupImg = popupView.querySelector('.popup__img');
        const popupImgTitle = popupView.querySelector('.popup__img-title');
        
        //Передаем картинку и заголовок
-       popupImg.src = targetLink.src;
-       popupImgTitle.textContent = targetTitle.textContent;
-       popupImg.alt = targetTitle.textContent;
+       popupImg.src = this._image;
+       popupImgTitle.textContent = this._title;
+       popupImg.alt = this._alt;
      
        //Вызываем функцию открытия поп-апа
        openPopup(popupView);
