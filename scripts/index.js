@@ -35,10 +35,16 @@ const profileAbout = document.querySelector('.profile__subtitle');
 const elementsContainer = document.querySelector('.elemets');
 
 //Функции
-//Определяем функцию добавления карточки на страницу
-function renderElement(item) {
+//Определяем функцию создания новой карточки
+function generateCard(item) {
   const card = new Card(item.name, item.link, item.name, templateSelector);
-  elementsContainer.prepend(card.generateElement());
+    const newCard = card.generateElement();
+    return newCard;
+  };
+
+//Определяем функцию добавления карточки на страницу
+function renderElement(elm) {
+  elementsContainer.prepend(elm);
 };
 
 //Определяем функцию, закрывающую поп-ап по нажатию на Esc
@@ -98,7 +104,7 @@ function addFormSubmitHandler(evt) {
   };
 
   //Вызываем функцию создания нового элемента-карточки и добавления элемента на страницу
-  renderElement(newElementInput);
+  renderElement(generateCard(newElementInput));
   
   //закрываем поп-ап
   closePopup(popupAdd);
@@ -110,7 +116,7 @@ function addFormSubmitHandler(evt) {
 //Обработчики
 //Создаем набор карточек по умолчанию
 initialCards.forEach((item) => {
-  renderElement(item);
+  renderElement(generateCard(item));
 });
 
 //Включает валидацию для всех форм
