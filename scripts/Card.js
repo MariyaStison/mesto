@@ -19,11 +19,14 @@ export class Card {
   generateElement() {
     //Создаем новый эелемент
     this._element = this._getElement();
+
+    //Записываем DOM-элемент elemnt__img в переменную
+    this._element_img = this._element.querySelector('.elemnt__img');
     
     //Заполняем необходимые значения
-    this._element.querySelector('.elemnt__img').src = this._image;
+    this._element_img.src = this._image;
     this._element.querySelector('.elemnt__title').textContent = this._title;
-    this._element.querySelector('.elemnt__img').alt = this._alt;
+    this._element_img.alt = this._alt;
     
     //Добавляем слушателей
     this._setEventListeners();
