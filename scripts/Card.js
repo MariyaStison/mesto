@@ -1,4 +1,4 @@
-import {openPopup} from './index.js';
+import {openPopup, popupView} from './index.js';
 
 export class Card {
   constructor(title, image, alt, templateSelector) {
@@ -6,6 +6,7 @@ export class Card {
     this._image = image;
     this._alt = alt;
     this._templateSelector = templateSelector
+  
   }
   
   //Приватный метод для создания нового элементы по шаблону
@@ -69,9 +70,6 @@ export class Card {
        //Находим в целевой карточки ссылку на картинку и заголовок
        const targetLink = this._element.querySelector('.elemnt__img');
        const targetTitle = this._element.querySelector('.elemnt__title');
-       
-       //Находим поп-ап просмотра картинки
-       const popupView = document.querySelector('.popup_type_view');
        
        //Находим элементы поп-апа просмотра картинки
        const popupImg = popupView.querySelector('.popup__img');

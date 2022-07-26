@@ -7,6 +7,7 @@ import {initialCards} from './data.js';
 //Находим поп-апы, кнопку Редактирования профиля, кнопку Добавления места, кнопки закрытия поп-апов
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
+export const popupView = document.querySelector('.popup_type_view');
 const btnEdit = document.querySelector('.btn_type_edit');
 const btnAdd = document.querySelector('.btn_type_add');
 const popupCloseBtns = document.querySelectorAll('.btn_type_close');
