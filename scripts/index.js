@@ -137,7 +137,7 @@ btnEdit.addEventListener('click', function popupEditOpen() {
     jobInput.value = profileAbout.textContent;
 
     //Вызываем функцию, сбрасывающую ошибки валидации
-    formValidatorPopupEdit.resetValidation(popupEdit);
+    formValidatorPopupEdit.resetValidation();
 });
 
 //"Слушаем" клик по кнопке добавления картинки и открываем поп-ап при нажатии
@@ -146,7 +146,7 @@ btnAdd.addEventListener('click', function() {
   formValidatorPopupAdd.disableBtn();
 
   //Вызываем функцию, сбрасывающую ошибки валидации
-  formValidatorPopupAdd.resetValidation(popupAdd);
+  formValidatorPopupAdd.resetValidation();
 });
 
 //"Слушаем" клик по кнопке закрытия поапа и закрываем поп-ап при нажатии

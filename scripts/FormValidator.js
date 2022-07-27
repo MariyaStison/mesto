@@ -17,25 +17,20 @@ export const validationConfig = {
       this._inputErrorClass = validationConfig.inputErrorClass,
       this._errorClass = validationConfig.errorClass,
       this._form = form,
-      this._submitButton = this._form.querySelector(this._submitButtonSelector)
+      this._submitButton = this._form.querySelector(this._submitButtonSelector),
+      this._inputList = Array.from(this._form.querySelectorAll(this._inputSelector)),
+      this._buttonElement = this._form.querySelector(this._submitButtonSelector)
     };
 
     //Приватный метод, устанавливающий слушателей по поля ввода
-    _setEventListeners = (formElement,
-          inputSelector,
-          submitButtonSelector,
-          inputErrorClass,
-          errorClass,
-          inactiveButtonClass) => {
-        const inputList = Array.from(formElement.querySelectorAll(inputSelector));
-        const buttonElement = formElement.querySelector(submitButtonSelector);
-        
-        this._toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+    _setEventListeners = () => {
+              
+        this._toggleButtonState();
     
-        inputList.forEach((inputElement) => {
+        this._inputList.forEach((inputElement) => {
           inputElement.addEventListener('input', () => {
-            this._checkInputValidity(this._form, inputElement, inputErrorClass, errorClass);
-            this._toggleButtonState(inputList, buttonElement, inactiveButtonClass);
+            this._checkInputValidity(inputElement);
+            this._toggleButtonState();
           });
         });
       };
@@ -51,45 +46,45 @@ export const validationConfig = {
     };
 
    //Приватный метод для добавления класса ошибки полю ввода
-    _showInputError = (formElement, inputElement, errorMessage, inputErrorClass, errorClass) => {
-      const _errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-      inputElement.classList.add(inputErrorClass);
+    _showInputError = (inputElement, errorMessage) => {
+      const _errorElement = this._form.querySelector(`.${inputElement.id}-error`);
+      inputElement.classList.add(this._inputErrorClass);
       _errorElement.textContent = errorMessage;
-      _errorElement.classList.add(errorClass);
+      _errorElement.classList.add(this._errorClass);
     };
       
     //Приватный метод для проверки валидности заполнения формы
-    _checkInputValidity(formElement, inputElement, inputErrorClass, errorClass) {
+    _checkInputValidity(inputElement) {
       if (!inputElement.validity.valid) {
-        this._showInputError(formElement, inputElement, inputElement.validationMessage, inputErrorClass, errorClass);
+        this._showInputError(inputElement, inputElement.validationMessage);
       } else {
-        this._hideInputError(formElement, inputElement, inputErrorClass, errorClass);
+        this._hideInputError(inputElement);
       }
     };
 
     //Приватный метод, проверяющий наличие невалидных данных в полях
-    _hasInvalidInput(inputList) {
-      return inputList.some((inputElement) => {
+    _hasInvalidInput() {
+      return this._inputList.some((inputElement) => {
         return !inputElement.validity.valid;
       });
     };
 
     //Приватный метод, отвечающий за активности/неактивность кнопки отправки формы по результатам валидации
-    _toggleButtonState(inputList, buttonElement, inactiveButtonClass) {
-      if (this._hasInvalidInput(inputList)) {
-        buttonElement.classList.add(inactiveButtonClass);
-        buttonElement.disabled = true;
+    _toggleButtonState() {
+      if (this._hasInvalidInput()) {
+        this._buttonElement.classList.add(this._inactiveButtonClass);
+        this._buttonElement.disabled = true;
       } else {
-        buttonElement.classList.remove(inactiveButtonClass);
-        buttonElement.disabled = false;
+        this._buttonElement.classList.remove(this._inactiveButtonClass);
+        this._buttonElement.disabled = false;
       }; 
     };
 
   //Приватный метод для удаления класса ошибки у поля ввода
-  _hideInputError(formElement, inputElement, inputErrorClass, errorClass) {
-    const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-    inputElement.classList.remove(inputErrorClass);
-    errorElement.classList.remove(errorClass);
+  _hideInputError(inputElement) {
+    const errorElement = this._form.querySelector(`.${inputElement.id}-error`);
+    inputElement.classList.remove(this._inputErrorClass);
+    errorElement.classList.remove(this._errorClass);
     errorElement.textContent = '';
   };
 
@@ -100,9 +95,9 @@ export const validationConfig = {
   };
 
   //Публичный метод, сбрасывающий ошибки
-  resetValidation(popup) {
-    popup.querySelectorAll(this._inputSelector).forEach((item) => {
-    this._hideInputError(popup, item, this._inputErrorClass, this._errorClass);
+  resetValidation() {
+    this._inputList.forEach((item) => {
+    this._hideInputError(item);
     });
   };
 }
