@@ -1,14 +1,4 @@
-//Определяем переменные для валидации
-export const validationConfig = {
-    formSelector: '.popup__form',
-    inputSelector: '.input',
-    submitButtonSelector: '.btn_type_submit',
-    inactiveButtonClass: 'btn_inactive',
-    inputErrorClass: 'input_type_error',
-    errorClass: 'input-error_active'
-  };
-  
-  export class FormValidator {
+  export default class FormValidator {
     constructor (validationConfig, form) {
       this._formSelector = validationConfig.formSelector,
       this._inputSelector = validationConfig.inputSelector,

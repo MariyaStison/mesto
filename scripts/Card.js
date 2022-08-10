@@ -1,11 +1,14 @@
-import {openPopup, popupView} from './index.js';
+import {popupActiveClassName, 
+  elementImgSelector, elementTitleSelector, 
+  btnTypeLikeSelector, btnTypeDeleteSelector} from '../utils/constants.js';
 
 export class Card {
-  constructor(title, image, alt, templateSelector) {
+  constructor(title, image, alt, templateSelector, handleCardClick) {
     this._title = title;
     this._image = image;
     this._alt = alt;
-    this._templateSelector = templateSelector
+    this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
   
   //Приватный метод для создания нового элементы по шаблону
@@ -21,40 +24,38 @@ export class Card {
     this._element = this._getElement();
 
     //Записываем DOM-элемент elemnt__img в переменную
-    this._element_img = this._element.querySelector('.elemnt__img');
+    this._element_img = this._element.querySelector(elementImgSelector);
     
     //Заполняем необходимые значения
     this._element_img.src = this._image;
-    this._element.querySelector('.elemnt__title').textContent = this._title;
+    this._element.querySelector(elementTitleSelector).textContent = this._title;
     this._element_img.alt = this._alt;
     
     //Добавляем слушателей
     this._setEventListeners();
 
-   return this._element;
+    return this._element;
   }
 
     //Приватный метод для добавления слушателя
     _setEventListeners() {
         //Слушатель для кнопки Удалить
-        this._element.querySelector('.btn_type_delete').addEventListener('click', () => {
+        this._element.querySelector(btnTypeDeleteSelector).addEventListener('click', () => {
           this._deleteElement();
         });
         
         //Слушатель для кнопки Лайк
-        this._element.querySelector('.btn_type_like').addEventListener('click', () => {
+        this._element.querySelector(btnTypeLikeSelector).addEventListener('click', () => {
           this._toggleLike();
         });       
         
         //Слушатель для клика на карточке
-        this._element.querySelector('.elemnt__img').addEventListener('click', () => {
-            this._openPopupView();
-        });
+        this._element.querySelector(elementImgSelector).addEventListener('click', this._handleCardClick);
       }
     
       //Приватный метод для активации / деактивации кнопки Лайк
       _toggleLike() {
-        this._element.querySelector('.btn_type_like').classList.toggle('btn_active');
+        this._element.querySelector(btnTypeLikeSelector).classList.toggle(popupActiveClassName);
       };
       
       //Приватный метод для удаления карточки
@@ -62,21 +63,4 @@ export class Card {
         this._element.remove();
         this._element = null;
       };
-    
-      //Приватный метод для открытия поп-ап просмотра картинки 
-      _openPopupView() {
-       
-       //Находим элементы поп-апа просмотра картинки
-       const popupImg = popupView.querySelector('.popup__img');
-       const popupImgTitle = popupView.querySelector('.popup__img-title');
-       
-       //Передаем картинку и заголовок
-       popupImg.src = this._image;
-       popupImgTitle.textContent = this._title;
-       popupImg.alt = this._alt;
-     
-       //Вызываем функцию открытия поп-апа
-       openPopup(popupView);
-       };
-
 }
