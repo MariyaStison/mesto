@@ -1,4 +1,4 @@
-onst presets = [
+const presets = [
   ['@babel/preset-env', { // какой пресет использовать
     targets: { // какие версии браузеров поддерживать
       edge: '17',

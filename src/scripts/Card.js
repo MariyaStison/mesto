@@ -56,11 +56,11 @@ export class Card {
       //Приватный метод для активации / деактивации кнопки Лайк
       _toggleLike() {
         this._element.querySelector(btnTypeLikeSelector).classList.toggle(popupActiveClassName);
-      };
+      }
       
       //Приватный метод для удаления карточки
       _deleteElement() {
         this._element.remove();
         this._element = null;
-      };
+      }
 }

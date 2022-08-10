@@ -1,4 +1,4 @@
-import {popupOpenedSelector, btnTypeCloseSelector, popupOpenedClassName}  from '..//utils/constants.js';
+import {popupOpenedSelector, btnTypeCloseSelector, popupOpenedClassName}  from '../utils/constants.js';
 
 export default class Popup {
   constructor(popupSelector) {
