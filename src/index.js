@@ -2,12 +2,12 @@
 import './pages/index.css';
 import {popupAdd, popupEdit,
   btnEdit, btnAdd, 
+  initialCards,
   nameInput, jobInput, profileName, profileAbout, 
   templateSelector, popupSelectoEdit, popupSelectoAdd, popupSelectoView,
   validationConfig} from '../src/utils/constants.js';
 import {Card} from '../src/scripts/Card.js';
 import Section from '../src/scripts/Section.js';
-import {initialCards} from '../src/scripts/data.js';
 import {cardContainerSelector} from '../src/utils/constants.js';
 import PopupWithForm from '../src/scripts/PopupWithForm.js';
 import PopupWithImage from '../src/scripts/PopupWithImage.js';
