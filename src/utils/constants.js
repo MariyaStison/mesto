@@ -28,12 +28,10 @@ export const initialCards = [
 
 //Находим поп-апы, кнопку Редактирования профиля, кнопку Добавления места, кнопки закрытия поп-апов
 export const popupEdit = document.querySelector('.popup_type_edit');
-const popupView = document.querySelector('.popup_type_view');
 export const popupAdd = document.querySelector('.popup_type_add');
 export const btnEdit = document.querySelector('.btn_type_edit');
 export const btnAdd = document.querySelector('.btn_type_add');
-export const popupImg = popupView.querySelector('.popup__img');
-export const popupImgTitle = popupView.querySelector('.popup__img-title');
+
 //Определяем шаблон карточки
 export const templateSelector = '#elemnt';
 
@@ -54,13 +52,11 @@ export const popupSelectoEdit = '.popup_type_edit';
 export const popupSelectoAdd = '.popup_type_add';
 export const popupSelectoView = '.popup_type_view';
 export const popupOpenedSelector = '.popup_opened';
-export const popupOpenedClassName = 'popup_opened';
 export const popupActiveClassName = 'btn_active';
-export const btnTypeCloseSelector = '.btn_type_close';
 export const btnTypeLikeSelector = '.btn_type_like';
 export const btnTypeDeleteSelector = '.btn_type_delete';
-export const popupFormSelector = '.popup__form';
-export const inputSelector = '.input';
+const popupFormSelector = '.popup__form';
+const inputSelector = '.input';
 export const elementImgSelector = '.elemnt__img';
 export const elementTitleSelector = '.elemnt__title';
 

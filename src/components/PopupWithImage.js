@@ -1,5 +1,4 @@
 import Popup from "./Popup.js"
-import {popupImg, popupImgTitle, popupOpenedClassName} from '../utils/constants.js';
 
 export default class PopupWithImage extends Popup {
     constructor(image, title, alt, popupSelector) {
@@ -7,16 +6,18 @@ export default class PopupWithImage extends Popup {
         this._image = image;
         this._title = title;
         this._alt  = alt;
+        this._popupImg = this._popup.querySelector('.popup__img');
+        this._popupImgTitle = this._popup.querySelector('.popup__img-title');
     }
 
     open() {
     //Передаем картинку и заголовок
-      popupImg.src = this._image;
-      popupImgTitle.textContent = this._title;
-      popupImg.alt = this._alt;
-         
-     //Открываем поп-ап и добавляем
-     this._popup.classList.add(popupOpenedClassName);
-     super.setEventListeners();
+      this._popupImg.src = this._image;
+      this._popupImgTitle.textContent = this._title;
+      this._popupImg.alt = this._alt;
+       
+      
+    ///Открываем поп-ап и добавляем слушателей, вызывая метод родительского класса
+    super.open();
     }
 }
