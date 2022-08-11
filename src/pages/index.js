@@ -19,7 +19,10 @@ import FormValidator from '../components/FormValidator.js';
 function generateCard(item) {
   const card = new Card(item.name, item.link, item.name, templateSelector, () => {
     const popupWithImage = new PopupWithImage(item.link, item.name, item.name, popupSelectoView);
-    popupWithImage.open()
+      //Добавляем слушателя клика
+      document.addEventListener('click', popupWithImage.handlePopupClose);
+     
+      popupWithImage.open();
   });
     const newCard = card.generateElement();
     return newCard;
@@ -65,8 +68,11 @@ btnEdit.addEventListener('click', function popupEditOpen() {
       }
     })
   
-  //Открываем поп-ап редактирования профиля
-  formEdit.open();
+    //Добавляем слушателя клика
+    document.addEventListener('click', formEdit.handlePopupClose);
+  
+    //Открываем поп-ап редактирования профиля
+    formEdit.open();
 
   //Заполняем поля формы текущими значениям из профиля
   nameInput.value = user.getUserInfo().name;
@@ -86,6 +92,9 @@ btnAdd.addEventListener('click', function() {
       formAdd.close();
     }
   });
+   
+  //Добавляем слушателя клика
+  document.addEventListener('click', formAdd.handlePopupClose);
 
   formAdd.open();
     

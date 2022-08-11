@@ -34,12 +34,6 @@ export default class PopupWithForm extends Popup {
 
  close() {
     super.close();
-  
-    //this._popup.classList.remove(popupOpenedClassName);
-    //Удаляем "слушателей"
-    //document.removeEventListener('keydown', this._handleEscClose);
-    //document.removeEventListener('click', this._closePopupByClickOut);
-
     this._form.reset();
   }
 }
