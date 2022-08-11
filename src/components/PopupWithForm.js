@@ -4,7 +4,6 @@ import {inputSelector, btnTypeCloseSelector, popupOpenedClassName, popupFormSele
 export default class PopupWithForm extends Popup {
   constructor ({popupSelector, handleFormSubmit}) {
     super(popupSelector);
-    //document.querySelector(popupSelector).addEventListener('submit', this._handleFormSubmit);
     this._handleFormSubmit = handleFormSubmit;
   }
 
@@ -23,11 +22,9 @@ export default class PopupWithForm extends Popup {
   }
 
   setEventListeners() {
-    //Добавляем "слушатель" для нажатия на кнопку Esc
-    document.addEventListener('keydown', this._handleEscClose);
-    //Добавляем "слушатель" для клика вне поп-апа
-    document.addEventListener('click', this._closePopupByClickOut);
-    //Добавляем "слушатель" для кнопку Закрыть
+    //Вызываем метод родительного класса
+    super.setEventListeners();
+    //Расширяем метод родительского класса добавлением слушателя на кнопку Submit
     this._popup.querySelector(btnTypeCloseSelector).addEventListener('click', this.close.bind(this))
     this._popup.addEventListener('submit', (evt) => {
         evt.preventDefault();

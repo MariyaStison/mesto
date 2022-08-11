@@ -15,8 +15,7 @@ export default class Popup {
     this._popup.classList.remove(popupOpenedClassName);
     //Удаляем "слушателей"
     document.removeEventListener('keydown', this._handleEscClose);
-    document.removeEventListener('click', this._closePopupByClickOut);
-    this._popup.querySelector(btnTypeCloseSelector).removeEventListener('click', this.close.bind(this));   
+    document.removeEventListener('click', this._handlePopupClose);
   }
   
   //Приватный метод закрытия поп-ап по нажатию клавиши Esc
@@ -27,20 +26,16 @@ export default class Popup {
   }
 
   //Приватный метод закрытия поп-ап по клику вне поп-апа
- _closePopupByClickOut = (evt) => {
-    if (evt.target.classList.contains('popup') === true) {
-        if (evt.target.closest(popupOpenedSelector) != null) {
-          this.close();
-        }
-      }
+  _handlePopupClose = (evt) => {
+  if (evt.target.classList.contains('popup') || evt.target.classList.contains('btn_type_close')) {
+    this.close()
   }
+}
 
   setEventListeners() {
      //Добавляем "слушатель" для нажатия на кнопку Esc
      document.addEventListener('keydown', this._handleEscClose);
-     //Добавляем "слушатель" для клика вне поп-апа
-     document.addEventListener('click', this._closePopupByClickOut);
-     //Добавляем "слушатель" для кнопку Закрыть
-     this._popup.querySelector(btnTypeCloseSelector).addEventListener('click', this.close.bind(this));
+     //Добавляем "слушатель" для клика вне поп-апа и кнопки Close
+     document.addEventListener('click', this._handlePopupClose);
   }
 }
