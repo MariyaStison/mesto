@@ -1,18 +1,18 @@
 //ИМПОРТ
-import './pages/index.css';
+import './index.css';
 import {popupAdd, popupEdit,
   btnEdit, btnAdd, 
   initialCards,
   nameInput, jobInput, profileName, profileAbout, 
   templateSelector, popupSelectoEdit, popupSelectoAdd, popupSelectoView,
-  validationConfig} from '../src/utils/constants.js';
-import {Card} from '../src/scripts/Card.js';
-import Section from '../src/scripts/Section.js';
-import {cardContainerSelector} from '../src/utils/constants.js';
-import PopupWithForm from '../src/scripts/PopupWithForm.js';
-import PopupWithImage from '../src/scripts/PopupWithImage.js';
-import UserInfo from '../src/scripts/UserInfo.js';
-import FormValidator from '../src/scripts/FormValidator.js';
+  validationConfig} from '../utils/constants.js';
+import {Card} from '../components/Card.js';
+import Section from '../components/Section.js';
+import {cardContainerSelector} from '../utils/constants.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js';
+import FormValidator from '../components/FormValidator.js';
 
 //Функции
 //Определяем функцию создания новой карточки
