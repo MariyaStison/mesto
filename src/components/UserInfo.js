@@ -11,12 +11,13 @@ export default class UserInfo {
         name: this._userName,
         info: this._userInfo
       };
-      
       return this._user;
     }
 
     setUserInfo(data) {
         profileName.textContent = data.name;
         profileAbout.textContent = data.about;
+        this._userName = data.name;
+        this._userInfo = data.about;
     }
 }
