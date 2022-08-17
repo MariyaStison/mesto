@@ -21,8 +21,8 @@ function generateCard(item) {
   const card = new Card(item.name, item.link, item.name, templateSelector, () => {    
       popupWithImage.open(item.name, item.link, item.name);
   });
-    const newCard = card.generateElement();
-    return newCard;
+    //const newCard = card.generateElement();
+    return card.generateElement();
   };
 
 ////Инициализация классов
