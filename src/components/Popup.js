@@ -31,6 +31,6 @@ export default class Popup {
 
   setEventListeners() {
      //Добавляем "слушатель" для нажатия на кнопку Закрыть и клика вне поп-апа
-     document.addEventListener('click', this._handlePopupClose);
+     this._popup.addEventListener('click', this._handlePopupClose);
   }
 }
