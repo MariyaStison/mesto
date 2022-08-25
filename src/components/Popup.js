@@ -41,7 +41,4 @@ export default class Popup {
       this._popup.querySelector('.btn_type_submit').value = text2;
     }
   }
-  
-  
-
 }

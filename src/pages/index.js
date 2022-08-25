@@ -2,7 +2,7 @@
 import './index.css';
 import {popupAdd, popupEdit, popupEditAvatar,
   btnEdit, btnAdd, btnEditAvatar, btnTypeSubmitSelector, 
-  nameInput, jobInput, profileName, profileAbout, avatar,
+  nameInput, jobInput, avatar,
   templateSelector, popupSelectoEdit, popupSelectoAdd, popupSelectoView, popupSelectoEditAvatar, popupSelectoConfirm, 
   btnTypeLikeSelector, popupActiveClassName, likeCounterSelector, 
   validationConfig} from '../utils/constants.js';
@@ -16,63 +16,35 @@ import UserInfo from '../components/UserInfo.js';
 import FormValidator from '../components/FormValidator.js';
 import Api from '../components/Api.js';
 
-//Инициализация АПИ
+//Инициализируем АПИ
 const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-49',
   headers: {
     authorization: 'fe173521-ce0e-462c-827f-202e1a843a6d',
     'Content-Type': 'application/json'
   }
-}); 
-
-function initUser(userData) {
-  const user = new UserInfo(userData.name, userData.about, userData.avatar, userData._id);
-    user.setUserInfo(userData);
-    user._userId = userData._id;
-    return user;
-}
-
-function initSection(initialCards, userId) {
-  const elementList = new Section({
-    items: initialCards,
-     renderer: (item) => {
-     elementList.addItem(generateCard(item, userId));
-     }},
-    cardContainerSelector);
-   return elementList;
-}
+});
 
  //Инициализируем классы поп-апов и добавляем "слушателей"
-    const formEdit = new PopupWithForm({
-      popupSelector: popupSelectoEdit,
-      handleFormSubmit: (formData) => {
-      
-        formEdit.renderLoding(true, 'Сохранение...', 'Сохранить');
+ const popupWithImage = new PopupWithImage(popupSelectoView);
 
-        //Записываем новые данные пользователя
-        api.patchUserData(formData)
-          .then((result) => {
-            profileName.textContent = result.name;
-            profileAbout.textContent = result.about;
-          })
-          .catch(function(res) {
-            console.log('Произошла ошибка при сохранении данных пользователя: ' + res);
-          })
-          .finally(() => {
-            formEdit.renderLoding(false, 'Сохранение...', 'Сохранить');
-          })
-
-     //закрываем поп-ап
-    formEdit.close();
-
-     //Вызываем функцию, сбрасывающую ошибки валидации
-    formValidatorPopupEdit.resetValidation();
-    }
-   });
-    //Добавляем слушателя клика      
-    formEdit.setEventListeners();
+ const formConfirm = new PopupConfirm(popupSelectoConfirm, btnTypeSubmitSelector, 
+   (cardId) => {
+     api.deleteCard(cardId)
+       .then(() => {
+         formConfirm.handleDeleteElement();
+       })
+       .catch(function(res) {
+         console.log(`Произошла ошибка при удалении карточки: ` + res);
+       });
+ });
+ //Добавляем слушателя клика
+ formConfirm.setEventListeners()
  
-  const formEditAvatar = new PopupWithForm({
+ //Добавляем слушателя клика
+ popupWithImage.setEventListeners();
+ 
+const formEditAvatar = new PopupWithForm({
     popupSelector: popupSelectoEditAvatar,
     handleFormSubmit: (formData) => {
        
@@ -83,15 +55,15 @@ function initSection(initialCards, userId) {
        .then((result) => {
           avatar.src = result.avatar;
         })
-         .catch(function(res) {
+        .catch(function(res) {
            console.log('Произошла ошибка при сохранении данных пользователя: ' + res);
           })
-         .finally(() => {
+        .finally(() => {
            formEditAvatar.renderLoding(false, 'Сохранение...', 'Сохранить');
          })
 
-   //закрываем поп-ап
-   formEditAvatar.close();
+    //закрываем поп-ап
+    formEditAvatar.close();
 
     //Вызываем функцию, сбрасывающую ошибки валидации
     formValidatorPopupEditAvatar.resetValidation();
@@ -104,10 +76,41 @@ function initSection(initialCards, userId) {
 //Получаем данные о пользователе и создаем пользователя
 api.getUserData()
   .then((result) => {
-     return initUser(result);
+    const user = new UserInfo(result.name, result.about, result.avatar, result._id);
+    user.setUserInfo(result);
+    user._userId = result._id;
+    return user;
   })
   .then((user) => {
-     //"Слушаем" клик по кнопке редактирования профиля и открываем поп-ап при нажатии
+   const formEdit = new PopupWithForm({
+    popupSelector: popupSelectoEdit,
+    handleFormSubmit: (formData) => {
+      formEdit.renderLoding(true, 'Сохранение...', 'Сохранить');
+         
+      //Записываем новые данные пользователя
+      api.patchUserData(formData)
+        .then((result) => {
+          user.setUserInfo(result);
+        })
+        .catch(function(res) {
+          console.log('Произошла ошибка при сохранении данных пользователя: ' + res);
+        })
+        .finally(() => {
+          formEdit.renderLoding(false, 'Сохранение...', 'Сохранить');
+        })
+
+      //закрываем поп-ап
+       formEdit.close();
+
+      //Вызываем функцию, сбрасывающую ошибки валидации
+      formValidatorPopupEdit.resetValidation();
+     }
+   });
+
+    //Добавляем слушателя клика      
+    formEdit.setEventListeners();
+ 
+   //"Слушаем" клик по кнопке редактирования профиля и открываем поп-ап при нажатии
     btnEdit.addEventListener('click', function popupEditOpen() {
    
       //Открываем поп-ап редактирования профиля
@@ -118,21 +121,26 @@ api.getUserData()
       jobInput.value = user.getUserInfo().info;
     });
     return user;
-  })
+    })
   .catch(function(res) {
     console.log(`Произошла ошибка при загрузке данных пользователя: ` + res);
-  })
-  //Получаем данные карточек и создаем карточки
+   })
+//Получаем данные карточек и создаем карточки
     .then((user) => {
       api.getInitialCards()
        .then((result) => { 
-          initSection(result, user._userId).renderItems(); 
-          return initSection(result); 
+        const elementList = new Section({
+          items: result,
+           renderer: (item) => {
+           elementList.addItem(generateCard(item, user._userId));
+           }},
+          cardContainerSelector);
+         
+          elementList.renderItems();
+
+         return elementList;
        })
-       .catch(function(res) {
-         console.log(`Произошла ошибка при загрузки карточек: ` + res);
-        })
-        .then((res) => {
+       .then((res) => {
           //Инициализируем поп-ап добавления картинки
           const formAdd = new PopupWithForm({
             popupSelector: popupSelectoAdd,
@@ -170,9 +178,11 @@ api.getUserData()
           formValidatorPopupAdd.resetValidation();
           });
         })
+        .catch(function(res) {
+          console.log(`Произошла ошибка при загрузки карточек: ` + res);
+         })
     });
 
-//Функции
 //Определяем функцию создания новой карточки
 function generateCard(item, userId) {
   const card = new Card(item.name, item.link, item.name, item.likes, item.id, item.owner._id, templateSelector, 
@@ -208,31 +218,10 @@ function generateCard(item, userId) {
 
   //Скрываем иконку Удалить для чужих карточек
   if (card.ownerId != userId) {
-    //console.log(newCard.querySelector('.btn_type_delete').classList);
     newCard.querySelector('.btn_type_delete').classList.add('btn_hidden');
   }
-
   return newCard;
   };
-
-////Инициализация классов
-const popupWithImage = new PopupWithImage(popupSelectoView);
-
-const formConfirm = new PopupConfirm(popupSelectoConfirm, btnTypeSubmitSelector, 
-  (cardId) => {
-    api.deleteCard(cardId)
-      .then(() => {
-        formConfirm.handleDeleteElement();
-      })
-      .catch(function(res) {
-        console.log(`Произошла ошибка при удалении карточки: ` + res);
-      });
-});
-//Добавляем слушателя клика
-formConfirm.setEventListeners()
-
-//Добавляем слушателя клика
-popupWithImage.setEventListeners();
 
 //Включаем валидацию для форм
 const formValidatorPopupAdd = new FormValidator(validationConfig, popupAdd);

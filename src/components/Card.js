@@ -32,6 +32,10 @@ export class Card {
     
     //Заполняем необходимые значения
     this._element_img.src = this._image;
+    //Обработка ошибки при загрузке картинки
+    this._element_img.onerror = function() {
+      console.log(`При загрузке изображения ${this.src} произошла ошибка`);
+    }
     this._element.querySelector(elementTitleSelector).textContent = this._title;
     this._element_img.alt = this._alt;
     this._element.querySelector('.elemnt__like-counter').textContent = this._likes.length;
