@@ -8,16 +8,11 @@ export default class PopupConfirm extends Popup {
   }
 
   //Расширяем родительский метод открытия поп-апа
-  open(elm, cardId) {
+  open(elm, cardId, card) {
     super.open();
     this._elm = elm;
-    this._cardId = cardId
-  }
-
-  //Метод для удаления элемента карточки после удаления карточки на сервере
-  handleDeleteElement() {
-        this._elm.remove();
-        this._elm = null;
+    this._cardId = cardId;
+    this._card = card;
   }
 
   setEventListeners() {
@@ -25,8 +20,7 @@ export default class PopupConfirm extends Popup {
     super.setEventListeners();
     //Расширяем метод родительского класса добавлением слушателя на кнопку Submit
     this._btnConfirm.addEventListener('click', () => {
-      this._handleDeleteCard(this._cardId);
-      super.close();
+      this._handleDeleteCard(this._cardId, this._card);
      })
    }
 }

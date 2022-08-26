@@ -27,12 +27,7 @@
 
     //Публичный метод, отвечающий за включение валидации
     enableValidation() {
-        this._setEventListeners(this._form,
-          this._inputSelector,
-          this._submitButtonSelector,
-          this._inputErrorClass,
-          this._errorClass,
-          this._inactiveButtonClass);
+        this._setEventListeners();
     };
 
    //Приватный метод для добавления класса ошибки полю ввода
@@ -62,8 +57,7 @@
     //Приватный метод, отвечающий за активности/неактивность кнопки отправки формы по результатам валидации
     _toggleButtonState() {
       if (this._hasInvalidInput()) {
-        this._buttonElement.classList.add(this._inactiveButtonClass);
-        this._buttonElement.disabled = true;
+        this.disableBtn();
       } else {
         this._buttonElement.classList.remove(this._inactiveButtonClass);
         this._buttonElement.disabled = false;
@@ -89,5 +83,6 @@
     this._inputList.forEach((item) => {
     this._hideInputError(item);
     });
+    this._toggleButtonState();
   };
 }

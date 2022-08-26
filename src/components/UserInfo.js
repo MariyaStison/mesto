@@ -1,27 +1,23 @@
-import {profileName, profileAbout, profileAvatar} from '../utils/constants.js';
-
 export default class UserInfo {
-    constructor (userName, userInfo, userAvatar, userId) {
-       this._userName = userName;
-       this._userInfo = userInfo;
-       this._userAvatar = userAvatar;
-       this._userId = userId;
+    constructor (profileNameSelector, profileAboutSelector, profileAvatarSelector, userId) {
+       this._profileName = document.querySelector(profileNameSelector);
+       this._profileAbout = document.querySelector(profileAboutSelector);
+       this._profileAvatar = document.querySelector(profileAvatarSelector);
+       this.userId = userId;
     }
 
     getUserInfo() {
       this._user = {
-        name: this._userName,
-        info: this._userInfo
+        name: this._profileName.textContent,
+        info: this._profileAbout.textContent
       };
       return this._user;
     }
 
     setUserInfo(data) {
-        profileName.textContent = data.name;
-        profileAbout.textContent = data.about;
-        profileAvatar.src = data.avatar;
-        this._userName = data.name;
-        this._userInfo = data.about;
-        this._userAvatar = data.avatar;
+        this._profileName.textContent = data.name;
+        this._profileAbout.textContent = data.about;
+        this._profileAvatar.src = data.avatar;
+        this.userId = data._id;
     }
 }

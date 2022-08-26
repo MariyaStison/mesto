@@ -34,11 +34,11 @@ export default class Popup {
      this._popup.addEventListener('click', this._handlePopupClose);
   }
 
-  renderLoding(isLoading, text1, text2) {
+  renderLoding(isLoading, text) {
     if(isLoading) {
-      this._popup.querySelector('.btn_type_submit').value = text1;
+      this._popup.querySelector('.btn_type_submit').value = text;
     } else {
-      this._popup.querySelector('.btn_type_submit').value = text2;
+      this._popup.querySelector('.btn_type_submit').value = text;
     }
   }
 }

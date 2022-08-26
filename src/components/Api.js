@@ -3,45 +3,34 @@ export default class Api {
       this._baseUrl = options.baseUrl;
       this._headers = options.headers;
     }
-  
+
+    //Приватный метод для проебразования и проверке ответа от сервера
+    _getResponseData(res) {
+      if (!res.ok) {
+        return Promise.reject(`Ошибка: ${res.status}`); 
+      }
+      return res.json();
+    }
+    
+
     //Метод для получения информации о пользователе
     getUserData() {
       return fetch(`${this._baseUrl}/users/me`, {
         headers: this._headers
         })
             .then(res => {
-              if (res.ok) {
-                return res.json();
-              } 
-            // если ошибка, отклоняем промис
-                return Promise.reject(`Ошибка: ${res.status}`);
-               })
-            .then(result => {
-                return result;
+              return this._getResponseData(res);
             })
-            .catch((err) => {
-              console.log(err); // выведем ошибку в консоль
-            });
     }
-     
+    
     //Метод для получения данных карточек
     getInitialCards() {
         return fetch(`${this._baseUrl}/cards`, {
             headers: this._headers
             })
-                .then(res => {
-                  if (res.ok) {
-                    return res.json();
-                  } 
-                // если ошибка, отклоняем промис
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                   })
-                .then(result => {
-                    return result;
-                })
-                .catch((err) => {
-                  console.log(err); // выведем ошибку в консоль
-                });
+              .then(res => {
+                return this._getResponseData(res);
+              })
     }
   
     //Метод для загрузки данных пользователя на сервер
@@ -54,19 +43,9 @@ export default class Api {
                 about: data.about
             })
             })
-                .then(res => {
-                  if (res.ok) {
-                    return res.json();
-                  } 
-                // если ошибка, отклоняем промис
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                   })
-                .then(result => {
-                    return result;
-                })
-                .catch((err) => {
-                  console.log(err); // выведем ошибку в консоль
-                });
+            .then(res => {
+              return this._getResponseData(res);
+            })
     }
 
     //Метод для добавления новой карточки
@@ -79,19 +58,9 @@ export default class Api {
                 link: data.link
             })
             })
-                .then(res => {
-                  if (res.ok) {
-                    return res.json();
-                  } 
-                // если ошибка, отклоняем промис
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                   })
-                .then(result => {
-                    return result;  
-                })
-                .catch((err) => {
-                  console.log(err); // выведем ошибку в консоль
-                });
+            .then(res => {
+              return this._getResponseData(res);
+            })
     }
 
      //Метод для удаления карточки
@@ -100,19 +69,9 @@ export default class Api {
             method: 'DELETE',    
             headers: this._headers,
             })
-                .then(res => {
-                  if (res.ok) {
-                    return res.json();
-                  } 
-                // если ошибка, отклоняем промис
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                   })
-                .then(result => {
-                    return result;  
-                })
-                .catch((err) => {
-                  console.log(err); // выведем ошибку в консоль
-                });
+            .then(res => {
+              return this._getResponseData(res);
+            })
     }
 
     //Метод для редактирования аватара
@@ -124,20 +83,9 @@ export default class Api {
                 avatar: data.link
               })
             })
-        
-                .then(res => {
-                  if (res.ok) {
-                    return res.json();
-                  } 
-                // если ошибка, отклоняем промис
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                   })
-                .then(result => {
-                    return result;
-                })
-                .catch((err) => {
-                  console.log(err); // выведем ошибку в консоль
-                });
+            .then(res => {
+              return this._getResponseData(res);
+            })
     }
 
     //Метод для постановки лайка
@@ -146,19 +94,9 @@ export default class Api {
             method: 'PUT',    
             headers: this._headers,
             })
-                .then(res => {
-                  if (res.ok) {
-                    return res.json();
-                  } 
-                // если ошибка, отклоняем промис
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                   })
-                .then(result => {
-                    return result;  
-                })
-                .catch((err) => {
-                  console.log(err); // выведем ошибку в консоль
-                });
+            .then(res => {
+              return this._getResponseData(res);
+            })
     }
 
     //Метод для удаления лайка
@@ -167,18 +105,8 @@ export default class Api {
             method: 'DELETE',    
             headers: this._headers,
             })
-                .then(res => {
-                  if (res.ok) {
-                    return res.json();
-                  } 
-                // если ошибка, отклоняем промис
-                    return Promise.reject(`Ошибка: ${res.status}`);
-                   })
-                .then(result => {
-                    return result;  
-                })
-                .catch((err) => {
-                  console.log(err); // выведем ошибку в консоль
-                });
+            .then(res => {
+              return this._getResponseData(res);
+            })
     }
 }

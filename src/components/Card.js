@@ -1,6 +1,3 @@
-import {elementImgSelector, elementTitleSelector, 
-  btnTypeLikeSelector, btnTypeDeleteSelector} from '../utils/constants.js';
-
 export class Card {
   constructor(title, image, alt, likes, cardId, ownerId, templateSelector, handleCardClick, handleCardDelete, handleLike) {
     this._title = title;
@@ -28,7 +25,7 @@ export class Card {
     this._element = this._getElement();
 
     //Записываем DOM-элемент elemnt__img в переменную
-    this._element_img = this._element.querySelector(elementImgSelector);
+    this._element_img = this._element.querySelector('.elemnt__img');
     
     //Заполняем необходимые значения
     this._element_img.src = this._image;
@@ -36,7 +33,7 @@ export class Card {
     this._element_img.onerror = function() {
       console.log(`При загрузке изображения ${this.src} произошла ошибка`);
     }
-    this._element.querySelector(elementTitleSelector).textContent = this._title;
+    this._element.querySelector('.elemnt__title').textContent = this._title;
     this._element_img.alt = this._alt;
     this._element.querySelector('.elemnt__like-counter').textContent = this._likes.length;
 
@@ -46,21 +43,30 @@ export class Card {
     return this._element;
   }
 
-    //Приватный метод для добавления слушателя
-    _setEventListeners() {
+  toggleLike(likes) {
+    this._element.querySelector('.btn_type_like').classList.toggle('btn_active');
+    this._element.querySelector('.elemnt__like-counter').textContent = likes.length;
+  }
+
+  hideBtnDetele() {
+    this._element.querySelector('.btn_type_delete').classList.add('btn_hidden');
+  }
+
+  //Приватный метод для добавления слушателя
+  _setEventListeners() {
         //Слушатель для кнопки Удалить
-        this._element.querySelector(btnTypeDeleteSelector).addEventListener('click', this._handleCardDelete);
+        this._element.querySelector('.btn_type_delete').addEventListener('click', this._handleCardDelete);
         
         //Слушатель для кнопки Лайк
-        this._element.querySelector(btnTypeLikeSelector).addEventListener('click', this._handleLike);       
+        this._element.querySelector('.btn_type_like').addEventListener('click', this._handleLike);       
         
         //Слушатель для клика на карточке
-        this._element.querySelector(elementImgSelector).addEventListener('click', this._handleCardClick);
+        this._element.querySelector('.elemnt__img').addEventListener('click', this._handleCardClick);
       }
-  
-      //Приватный метод для удаления карточки
-      _deleteElement() {
-        this._element.remove();
-        this._element = null;
-      }
+   
+  //Метод для удаления карточки
+  deleteElement() {
+    this._element.remove();
+    this._element = null;
+  }
 }
