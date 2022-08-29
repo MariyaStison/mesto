@@ -46,13 +46,7 @@ const api = new Api({
         user.setUserInfo(result);
         
         //закрываем поп-ап
-        formEdit.close();
-
-        //Сбрасываем форму
-        formEdit.reset();
-       
-        //Вызываем функцию, сбрасывающую ошибки валидации
-        formValidatorPopupEdit.resetValidation(); 
+        formEdit.close(); 
       })
       .catch(function(res) {
         console.log('Произошла ошибка при сохранении данных пользователя: ' + res);
@@ -72,6 +66,9 @@ const api = new Api({
     //Открываем поп-ап редактирования профиля
     formEdit.open();
 
+    //Вызываем функцию, сбрасывающую ошибки валидации
+    formValidatorPopupEdit.resetValidation(); 
+
     //Заполняем поля формы текущими значениям из профиля
     nameInput.value = user.getUserInfo().name;
     jobInput.value = user.getUserInfo().info;
@@ -89,8 +86,6 @@ const api = new Api({
           elementList.addItem(generateCard(result, user.userId));
           //закрываем поп-ап
           formAdd.close();
-          //Сбрасываем форму
-          formAdd.reset();
         })
         .catch(function(res) {
           console.log(`Произошла ошибка при сохранении карточки: ` + res);
@@ -150,9 +145,6 @@ const formEditAvatar = new PopupWithForm({
 
            //закрываем поп-ап
           formEditAvatar.close();
-
-          //Вызываем функцию, сбрасывающую ошибки валидации
-          formValidatorPopupEditAvatar.resetValidation(); 
         })
         .catch(function(res) {
            console.log('Произошла ошибка при сохранении данных пользователя: ' + res);
@@ -175,18 +167,18 @@ Promise.all([
   elementList.renderItems(initialCards);
 })
 .catch((err) => {
-  console.log(`Произошла ошибка при загрузкt данных: ` + err);
+  console.log(`Произошла ошибка при загрузки данных: ` + err);
  })
 
 //Определяем функцию создания новой карточки
 function generateCard(item, userId) {
-  const card = new Card(item.name, item.link, item.name, item.likes, item._id, item.owner._id, templateSelector, 
+  const card = new Card(item.name, item.link, item.name, item.likes, item._id, item.owner._id, userId, templateSelector, 
     () => {    
       popupWithImage.open(item.name, item.link, item.name);
     }, () => {
       formConfirm.open(newCard, card.cardId, card);
     }, () => {
-      if (newCard.querySelector('.btn_type_like').classList.contains('btn_active')) {
+      if (card.isLiked()) {  
         api.deleteLike(card.cardId)
          .then((result) => {
            card.toggleLike(result.likes);
@@ -207,11 +199,6 @@ function generateCard(item, userId) {
   );
 
   const newCard = card.generateElement();
-
-  //Скрываем иконку Удалить для чужих карточек
-  if (card.ownerId != userId) {
-    card.hideBtnDetele();
-  }
   return newCard;
   };
 
@@ -230,5 +217,8 @@ btnEditAvatar.addEventListener('click', function popupEditAvatarOpen() {
    
   //Открываем поп-ап обновления аватара
   formEditAvatar.open();
+
+  //Вызываем функцию, сбрасывающую ошибки валидации
+  formValidatorPopupEditAvatar.resetValidation(); 
 });
 

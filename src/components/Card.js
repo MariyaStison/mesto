@@ -1,11 +1,12 @@
 export class Card {
-  constructor(title, image, alt, likes, cardId, ownerId, templateSelector, handleCardClick, handleCardDelete, handleLike) {
+  constructor(title, image, alt, likes, cardId, ownerId, userId, templateSelector, handleCardClick, handleCardDelete, handleLike) {
     this._title = title;
     this._image = image;
     this._alt = alt;
     this._likes = likes;
     this.cardId = cardId;
-    this.ownerId = ownerId;
+    this._ownerId = ownerId;
+    this._userId = userId;
     this._templateSelector = templateSelector;
     this._handleCardClick = handleCardClick;
     this._handleCardDelete = handleCardDelete;
@@ -37,6 +38,15 @@ export class Card {
     this._element_img.alt = this._alt;
     this._element.querySelector('.elemnt__like-counter').textContent = this._likes.length;
 
+    if (this._likes.some((like) => like._id === this._userId)) {
+      this._element.querySelector('.btn_type_like').classList.add('btn_active');
+    }
+
+    //Скрываем иконку Удалить для чужих карточек
+    if (this._ownerId != this._userId) {
+      this._element.querySelector('.btn_type_delete').classList.add('btn_hidden');
+    }
+ 
     //Добавляем слушателей
     this._setEventListeners();
 
@@ -48,9 +58,9 @@ export class Card {
     this._element.querySelector('.elemnt__like-counter').textContent = likes.length;
   }
 
-  hideBtnDetele() {
-    this._element.querySelector('.btn_type_delete').classList.add('btn_hidden');
-  }
+  isLiked() {
+    return this._element.querySelector('.btn_type_like').classList.contains('btn_active')
+  } 
 
   //Приватный метод для добавления слушателя
   _setEventListeners() {
